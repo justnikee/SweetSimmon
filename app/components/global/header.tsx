@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 const Header = () => {
   return (
-    <header className='bg-[#FAF7F2] py-2'>
+    <header className='bg-[#FAF7F2] py-2 z-10 relative'>
          <div className='container gap-2 hidden md:flex md:justify-between md:items-center'>
 
               <div className='flex gap-4'>
