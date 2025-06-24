@@ -1,9 +1,7 @@
 import React from 'react'
 import Card from '../card'
 
-type Props = {}
-
-const Products = (props: Props) => {
+const Products = () => {
   return (
     <section>
         <div className='flex'>
