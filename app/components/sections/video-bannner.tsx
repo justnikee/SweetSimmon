@@ -12,7 +12,7 @@ const VideoBanner = () => {
         loop
         poster=""
       >
-        <source src="/videos/sample.mp4" type="video/mp4" />
+        <source src="/videos/1.webm" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
       <div className='absolute bottom-10 left-10 flex flex-col'>
