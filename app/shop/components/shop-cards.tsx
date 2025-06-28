@@ -12,7 +12,7 @@ type Product = {
 const ShopCards = ({id, title, images, price}: Product) => {
   return (
     <div className='bg-[#E7E4DE]'>
-       <Link href={`/product/${id}`}>
+       <Link href={`/shop/${id}`}>
        {
         images.slice(0, 1).map(image => (
           <Image className='lg:h-[600px] object-contain' src={image} height={800} width={800} alt={title} />
