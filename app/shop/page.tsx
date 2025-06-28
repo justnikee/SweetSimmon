@@ -10,9 +10,9 @@ type Product = {
 
 const page = async() => {
 
-  const response = await fetch('https://dummyjson.com/products');
+  const response = await fetch('http://localhost:3000/api/products');
   const data = await response.json();
-  const products: Product[] = data.products
+  const products: Product[] = data
 
   return (
     <div className='bg-white'>
