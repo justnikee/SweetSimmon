@@ -1,5 +1,6 @@
 import React from 'react'
 import ShopCards from './components/shop-cards';
+import ShopFilter from './components/shop-filter';
 
 type Product = {
     id: number
@@ -18,9 +19,10 @@ const page = async() => {
 
   return (
     <div className='bg-white'>
-        <div className='px-20 py-10'>
-          <h2 className='text-black text-4xl italic'>All Jewelry</h2>
-          <span className='text-black'>{products.length} Items</span>
+        <div className='px-20 py-10'> 
+          <h2 className='text-primary text-4xl uppercase mb-4'>Shop All</h2>
+          <p className='text-sm text-primary leading-[18px]'>Clean, gentle and results-driven essentials, inspired <br/>by Nordic nature. Dermatologist-Tested.</p>
+          <ShopFilter/>
         </div>
         <div className='grid lg:grid-cols-4 md:grid-cols-3 gap-0.5'>
         {
