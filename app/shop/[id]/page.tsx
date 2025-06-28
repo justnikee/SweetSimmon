@@ -9,14 +9,17 @@ type Params = {
 }
 
 const page = async({params}: Params) => {
-  const { id } = params 
-  console.log(id, "slug")
-  const res = await fetch(`https://dummyjson.com/products/${id}`);
-  const product = await res.json();
-  console.log(product)
+  const { id } = await params 
+  const res = await fetch(`http://localhost:3000/api/products/${id}`, {
+    next: {revalidate: 3600}
+  });
+  const data = await res.json();
+  const product = await data.product
   return (
-    <div>
-        <ProductComponent product={product}/>
+    <div className='py-20'>
+      <div className='max-w-[1440px] px-10 m-auto'>
+          <ProductComponent product={product}/> 
+      </div> 
     </div>
   )
 }

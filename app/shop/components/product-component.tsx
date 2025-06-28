@@ -6,29 +6,18 @@ type Product = {
   id: number
   title: string
   description: string
-  category: string
   price: number
-  discountPercentage: number
-  rating: number
-  brand: string
-  weight: string
-  dimensions: {
-    width: number
-    height: number
-    depth: number
-  }
-  shippingInformation: string
-  availabilityStatus: string
   images: string[]
-
 }
 
 const ProductComponent = ({product}: {product: Product}) => {
   return (
     <div className='bg-white'>
-        <div className='container flex'>
-           <ImageBlock images={product.images}/>
-           <div>
+        <div className='container flex gap-10'>
+          <div className='flex-1'>
+              <ImageBlock images={product.images}/>
+          </div>
+           <div className='flex-1'>
              <ProductInfo product={product}/>
            </div>
         </div>

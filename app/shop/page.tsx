@@ -10,7 +10,9 @@ type Product = {
 
 const page = async() => {
 
-  const response = await fetch('http://localhost:3000/api/products');
+  const response = await fetch('http://localhost:3000/api/products', {
+    next: {revalidate: 3600}
+  });
   const data = await response.json();
   const products: Product[] = data
 

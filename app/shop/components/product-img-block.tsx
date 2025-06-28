@@ -22,22 +22,22 @@ const ImageBlock = ({ images }: Images) => {
   return (
     <div className="flex gap-4">
       <div className="shrink-0">
-        <div className="flex flex-col gap-2 max-h-[42rem] overflow-y-auto">
-          {images.map((image, i) => (
+        <div className="flex flex-col gap-2 overflow-y-auto">
+          {images?.map((image, i) => (
             <button key={i} onClick={() => handleThumbnailClick(i)}>
               <Image
                 src={image}
                 alt={`Thumbnail ${i + 1}`}
-                width={96}
-                height={96}
-                className="object-cover rounded border hover:ring-2 ring-offset-2 ring-blue-500 transition"
+                width={150}
+                height={190}
+                className="object-cover transition"
               />
             </button>
           ))}
         </div>
       </div>
 
-      <div className="h-[42rem] w-full">
+      <div className="w-full">
         <Splide
           options={{
             direction: 'ttb',
@@ -52,14 +52,14 @@ const ImageBlock = ({ images }: Images) => {
           }}
           aria-label="Product Images"
         >
-          {images.map((image, i) => (
+          {images?.map((image, i) => (
             <SplideSlide key={i}>
               <Image
                 src={image}
                 alt={`Main Image ${i + 1}`}
                 width={1000}
                 height={1000}
-                className="h-[42rem] w-full object-contain"
+                className=" w-full object-contain"
               />
             </SplideSlide>
           ))}

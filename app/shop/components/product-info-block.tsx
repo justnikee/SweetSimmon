@@ -4,40 +4,19 @@ type Product = {
   id: number
   title: string
   description: string
-  category: string
   price: number
-  discountPercentage: number
-  rating: number
-  brand: string
-  weight: string
-  dimensions: {
-    width: number
-    height: number
-    depth: number
-  }
-  shippingInformation: string
-  availabilityStatus: string
 }
 
 const ProductInfo = ({product}: {product: Product}) => {
   return (
     <>
-      <div className='text-black flex flex-col gap-4'>
-         <span>Prodcuts/{product.category}</span>
-         <h2>{product.title}</h2>
-         <p>Rs{product.price}</p>
-         <button>
-         {
-            product.availabilityStatus ? "Add To Cart" : "Out of Stock"
-         }
+      <div className='text-primary flex flex-col gap-4'>
+         <h2 className='text-3xl'>{product.title}</h2>
+         <p>€{product.price}</p>
+         <p className='text-sm leading-[18px] text-primary max-w-[500px]'>{product.description}</p>
+         <button className='border-primary uppercase text-sm bg-[#a6ccef] w-fit px-8 py-3 rounded-full'>
+         Add To Cart
          </button>
-         <span>{product.availabilityStatus ? "In Stock - Ready to ship" : "Out of Stock"}</span>
-         <ul>
-            <h4>Details</h4>
-            <ul>Depth: {product.dimensions.depth}</ul>
-            <ul>Height: {product.dimensions.height}</ul>
-            <ul>Width: {product.dimensions.width}</ul>
-         </ul>
       </div>
     </>
   )
