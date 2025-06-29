@@ -1,29 +1,42 @@
-import { Category } from '@/app/generated/prisma';
-import Link from 'next/link';
-import React from 'react'
+import Link from "next/link";
+import React from "react";
+import FilterDrawer from "./filter-drawer";
 
-type Props ={
-     collection: Category[]
-}
+type Category = {
+  slug: string;
+  name: string;
+};
 
-const ShopFilter = async() => {
+type Props = {
+  collection: Category[];
+};
 
-   const res = await fetch('http://localhost:3000/api/collections');
-   const collection: Category[] = await res.json();
-
+const ShopFilter = async () => {
+  const res = await fetch("http://localhost:3000/api/collections");
+  const collection = await res.json();
 
   return (
-    <div className='border-t border-b border-[#A3BFDB] py-4 px-20 mb-5'>
-       <div className='flex gap-6'>
-      <Link className='text-sm leading-[18px] text-primary' href='/collections/all'>Shop All</Link>
-      {
-        collection.map((cat: Category, i: number) => (
-            <Link key={i} className='text-sm leading-[18px] text-primary' href={cat.slug}>{cat.name}</Link>
-        ))
-      }
-       </div>
+    <div className="border-t border-b border-[#A3BFDB] py-4 px-20 mb-5 flex justify-between items-center">
+      <div className="flex gap-6">
+        <Link
+          className="text-sm leading-[18px] text-primary"
+          href="/collections/all"
+        >
+          Shop All
+        </Link>
+        {collection.map((cat: Category, i: number) => (
+          <Link
+            key={i}
+            className="text-sm leading-[18px] text-primary"
+            href={cat.slug}
+          >
+            {cat.name}
+          </Link>
+        ))}
+      </div>
+      <FilterDrawer />
     </div>
-  )
-}
+  );
+};
 
-export default ShopFilter
+export default ShopFilter;
