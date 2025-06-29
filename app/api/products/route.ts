@@ -8,7 +8,3 @@ export async function GET() {
          return Response.json(res);
     }
 }
-
-async function POST() {
-    
-}

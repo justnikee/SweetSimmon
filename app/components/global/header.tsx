@@ -8,7 +8,7 @@ const Header = () => {
 
               <div className='flex gap-4'>
                  <Link className='text-[#4E342E] text-sm' href={"/"}>Home</Link>
-                 <Link className='text-[#4E342E] text-sm' href={"/shop"}>Shop All</Link>
+                 <Link className='text-[#4E342E] text-sm' href={"/collections/all"}>Shop All</Link>
                  <Link className='text-[#4E342E] text-sm' href={"/about"}>About</Link>
               </div>
               <Link className='text-[#4E342E] text-4xl' href="/">SweetSimmooons</Link>

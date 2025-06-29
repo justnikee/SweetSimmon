@@ -12,7 +12,7 @@ type Product = {
 const ShopCards = ({id, title, images, price}: Product) => {
   return (
     <div className=''>
-       <Link className='relative group' href={`/shop/${id}`}>
+       <Link className='relative group' href={`/products/${id}`}>
        {
         images.slice(0, 2).map((image, index) => (
           <Image key={index} className={`lg:h-[600px] ease-in-out duration-500 transition-opacity object-contain ${index === 0 ? 'relative z-0' : 'absolute top-0 left-0 z-10 opacity-0 group-hover:opacity-100'}`} src={image} height={800} width={800} alt={title} />
