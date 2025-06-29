@@ -1,14 +1,7 @@
 import React from 'react'
 import ProductComponent from '../components/product-component'
 
-
-type Params = {
-   params: {
-    id: string
-   }
-}
-
-const page = async({params}: Params) => {
+const page = async({ params }: {params: Promise<{id: string}>}) => {
   const { id } = await params 
   const res = await fetch(`http://localhost:3000/api/products/${id}`, {
     next: {revalidate: 3600}

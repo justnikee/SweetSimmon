@@ -1,17 +1,32 @@
 import { PrismaClient } from "@/app/generated/prisma";
+import { NextRequest } from "next/server";
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
-export async function GET(req: Request, {params} : {params: {slug: string}}){
-    const slug = params.slug
-    console.log("slug", slug)
-    try {
-        const product = slug === 'all' 
-        ? await prisma.product.findMany() 
-        : await prisma.product.findMany({where: {category: {slug: slug}}});
+export async function GET(
+  _: NextRequest,
+  context: { params: Promise<{ slug: string }>}
+) {
+  const { slug } = await context.params;
 
-        return Response.json(product)
-    } catch (error) {
-        return Response.json({message: "someting went wrong", error})
-    }
+  try {
+    const products =
+      slug === "all"
+        ? await prisma.product.findMany()
+        : await prisma.product.findMany({
+            where: {
+              category: {
+                slug: slug,
+              },
+            },
+          });
+
+    return Response.json(products);
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    return new Response(
+      JSON.stringify({ message: "Something went wrong", error }),
+      { status: 500 }
+    );
+  }
 }

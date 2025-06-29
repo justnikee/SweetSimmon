@@ -1,14 +1,9 @@
+
 import type { Metadata } from "next";
-import localFont from 'next/font/local' 
 import "./globals.css";
 import Header from "./components/global/header";
 import Footer from "./components/global/footer";
-
-export const myFont = localFont({
-  src: './fonts/Matter-Light.woff2',
-  variable: "--font-myfont",
-  display: 'swap',
-})
+import {myFont} from "./font";
 
 export const metadata: Metadata = {
   title: "Create Next App",

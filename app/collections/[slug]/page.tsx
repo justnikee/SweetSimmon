@@ -10,10 +10,9 @@ type Product = {
     price: number
 }
 
-const page = async({params} : {params: {slug: string}}) => {
+const page = async({params} : {params: Promise<{slug: string}>}) => {
 
-const {slug} = params
-console.log(slug)
+    const { slug } = await params
 
     let response 
     slug === 'all'
