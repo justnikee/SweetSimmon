@@ -10,13 +10,6 @@ type Product = {
     price: number
 }
 
-type Category ={
-    id: number
-    name: string
-    description: string
-    slug: string
-}
-
 const page = async({params} : {params: {slug: string}}) => {
 
 const {slug} = params
