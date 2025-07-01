@@ -3,13 +3,47 @@
 import React from "react";
 import { useState } from "react";
 import Image from "next/image";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 
 export default function FilterDrawer() {
-  const [selected, setSelected] = useState<string | null>(null);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+
+  const currentSort = searchParams.get("sort");
+  const [selected, setSelected] = useState<string | null>(currentSort);
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
 
   function handleCheckboxChange(value: string) {
     setSelected((prev) => (prev === value ? null : value));
+  }
+
+  function handleSortApply() {
+    const params = new URLSearchParams(searchParams);
+
+    if (selected) {
+      const sortMapping = {
+        new: "new",
+        lowtohigh: "price_low",
+        hightolow: "price_high",
+      };
+
+      params.set("sort", sortMapping[selected as keyof typeof sortMapping]);
+    } else {
+      params.delete("sort");
+    }
+
+    router.push(`${pathname}?${params.toString()}`);
+    setDrawerOpen(false);
+  }
+
+  function handleClearAll() {
+    setSelected(null);
+    // Remove sort parameter from URL
+    const params = new URLSearchParams(searchParams);
+    params.delete("sort");
+    router.push(`${pathname}?${params.toString()}`);
+    setDrawerOpen(false);
   }
 
   return (
@@ -80,10 +114,16 @@ export default function FilterDrawer() {
             </form>
           </div>
           <div className="absolute bottom-0 left-0 flex gap-4 w-full">
-            <span className="border border-primary text-sm py-3 flex-1 text-center rounded-full leading-3.5 cursor-pointer">
+            <span
+              onClick={handleClearAll}
+              className="border border-primary text-sm py-3 flex-1 text-center rounded-full leading-3.5 cursor-pointer"
+            >
               Clear All
             </span>
-            <span className="border border-primary text-sm py-3 flex-1 text-center rounded-full leading-3.5 bg-[#D5E0EA] cursor-pointer">
+            <span
+              onClick={handleSortApply}
+              className="border border-primary text-sm py-3 flex-1 text-center rounded-full leading-3.5 bg-[#D5E0EA] cursor-pointer"
+            >
               Apply
             </span>
           </div>
