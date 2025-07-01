@@ -48,7 +48,7 @@ const page = async ({
 
   return (
     <div className="bg-white">
-      <div className="px-20 pt-10 pb-5">
+      <div className="container pt-10 !pb-5">
         <ShopHederText slug={slug} />
       </div>
       <ShopFilter />
@@ -66,5 +66,6 @@ const page = async ({
     </div>
   );
 };
+
 
 export default page;

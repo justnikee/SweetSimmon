@@ -1,9 +1,9 @@
-
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "./components/global/header";
 import Footer from "./components/global/footer";
-import {myFont} from "./font";
+import { myFont } from "./font";
+import AnnouncementBar from "./components/global/announcementBar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,12 +17,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${myFont.variable} antialiased`}
-      >
-        <Header/>
+      <body className={`${myFont.variable} antialiased`}>
+        <AnnouncementBar />
+        <Header />
         {children}
-        <Footer/>
+        <Footer />
       </body>
     </html>
   );

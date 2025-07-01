@@ -5,7 +5,7 @@ import { Search, User, ShoppingCart } from "lucide-react";
 
 const Header = () => {
   return (
-    <header className="bg-white py-2 z-10 relative">
+    <header className="bg-white py-4 z-10 sticky top-0">
       <div className="container gap-2 hidden md:flex md:justify-between md:items-center">
         <div className="flex gap-4">
           <Link
