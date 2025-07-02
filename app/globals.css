@@ -9,6 +9,7 @@
 
 @theme {
   --color-primary: #231f20;
+  --color-lightblue: #a3bfdb;
 }
 
 @theme inline {
@@ -49,4 +50,24 @@ body {
 
 body:has(.body-overflow-hidden) {
   overflow: hidden;
+}
+
+.banner .splide__pagination {
+  position: absolute;
+  right: 20px;
+  width: fit-content;
+  left: unset;
+  bottom: 40px;
+}
+
+.banner .splide__pagination__page.is-active {
+  width: 20px;
+  border-radius: 20px;
+  height: 5px !important;
+  scale: unset !important;
+}
+
+.banner .splide__pagination__page {
+  height: 5px !important;
+  width: 5px;
 }
