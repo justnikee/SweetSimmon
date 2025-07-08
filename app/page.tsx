@@ -12,7 +12,10 @@ export default function Home() {
     <div className="">
       <Banner />
       <PressSplide />
-      <Products />
+      <Products
+        heading="BESTSELLERS"
+        subheading="Dermatologist-tested and clinically proven formulas with Nordic ingredients"
+      />
       <ImageWithText
         heading="CLEAN, GENTLE + RESULTS-DRIVEN"
         subheading="Aevi is made with pure, therapeutic ingredients from Nordic nature. Our performance-driven formulas are clinically tested to ensure efficacy and visible results while still being gentle for sensitive skin."
@@ -35,10 +38,14 @@ export default function Home() {
         buttonUrl=""
         imagePosition="right"
       />
+      <Testimonials />
+      <Products
+        heading="GIFTS, SETS + BUNDLES"
+        subheading="Curated edits of bestselling clean beauty"
+      />
       <InfoImageBanner />
       <QuoteSection />
       <VideoBanner />
-      <Testimonials />
     </div>
   );
 }
