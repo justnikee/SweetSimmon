@@ -2,11 +2,9 @@ import Link from "next/link";
 import React from "react";
 import Image from "next/image";
 
-type Props = {};
-
-const CollectionShowcase = (props: Props) => {
+const CollectionShowcase = () => {
   return (
-    <section className="max-h-[700px] h-full">
+    <section className="max-h-[700px] h-full overflow-hidden">
       <div className="flex gap-2">
         <Link className="relative flex-1/4" href={""}>
           <Image
