@@ -1,11 +1,12 @@
 import Banner from "./components/banner";
 import PressSplide from "./components/sections/PressSwiper";
 import Products from "./components/sections/bestsellers";
-import InfoImageBanner from "./components/sections/info-banner";
-import QuoteSection from "./components/sections/quote-section";
-import VideoBanner from "./components/sections/video-bannner";
+// import InfoImageBanner from "./components/sections/info-banner";
+// import QuoteSection from "./components/sections/quote-section";
+// import VideoBanner from "./components/sections/video-bannner";
 import Testimonials from "./components/sections/testimonials";
 import ImageWithText from "./components/global/image-with-text";
+import CollectionShowcase from "./components/sections/collections-showcase";
 
 export default function Home() {
   return (
@@ -43,9 +44,10 @@ export default function Home() {
         heading="GIFTS, SETS + BUNDLES"
         subheading="Curated edits of bestselling clean beauty"
       />
-      <InfoImageBanner />
+      <CollectionShowcase />
+      {/* <InfoImageBanner />
       <QuoteSection />
-      <VideoBanner />
+      <VideoBanner /> */}
     </div>
   );
 }
