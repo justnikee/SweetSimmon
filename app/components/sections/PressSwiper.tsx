@@ -47,7 +47,7 @@ export default function MarqueeCarousel() {
     };
   }, []);
 
-  const doubledSlides = [...slides, ...slides]; // For seamless loop
+  const doubledSlides = [...slides, ...slides];
 
   return (
     <div

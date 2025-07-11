@@ -3,53 +3,65 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="pt-20 pb-8 bg-lightblue mt-2">
-      <div className="px-20 flex flex-col gap-14">
+    <footer className="py-20 bg-lightblue mt-2">
+      <div className="px-20 flex flex-col gap-14 max-w-[1440px] m-auto">
         <div className="flex justify-between">
           <div className="relative">
-            <h2 className="text-black text-4xl mb-4 italic font-extralight">
-              Join the legacy club
-            </h2>
-            <p className="text-black text-lg">
-              sign up to be the first to know about new arrivals & exclusive
-              offers.
+            <Image
+              src={"/images/site-logo/site-logo.webp"}
+              height={100}
+              width={100}
+              alt="Logo"
+              className="mb-8"
+            />
+            <p className="text-primary text-[12px] mb-4">LET'S CONNECT</p>
+            <p className="text-primary text-sm">
+              Subscribe to our newsletter and get 10% off your first order.
             </p>
-            <form className="w-full flex items-center h-14 mt-3.5">
+            <form className="w-full flex items-center mt-3.5 border-b">
               <input
-                className="bg-[#DDDAD4] w-full h-full placeholder:text-black placeholder:uppercase px-4"
+                className="bg-transparent w-full h-full py-2.5 focus-visible:outline-none"
                 type="email"
-                placeholder="Enter E-mail Address"
+                placeholder=""
               />
-              <button className="text-black h-full px-6 uppercase bg-[#DDDAD4]">
-                Submit
+              <button className="text-primary text-[12px] cursor-pointer h-full uppercase">
+                Subscribe
               </button>
             </form>
+            <span className="text-primary text-[10px] mt-4 block">
+              © 2025 Aevi Wellness – Aevi Wellness AB, Klocka 185, 837 71 Duved,
+              Sweden
+            </span>
           </div>
           <div className="flex gap-20">
             <ul>
-              <h3 className="text-xl text-black mb-2">INFO</h3>
-              <li className="text-black text-lg">Account</li>
-              <li className="text-black text-lg">Privacy Policy</li>
+              <h3 className="text-sm text-primary mb-2">INFO</h3>
+              <li className="text-primary text-[16px] mb-2 hover:underline">
+                Account
+              </li>
+              <li className="text-primary text-[16px] mb-2 hover:underline">
+                Privacy Policy
+              </li>
             </ul>
             <ul>
-              <h3 className="text-xl text-black mb-2">SUPPORT</h3>
-              <li className="text-black text-lg">Contact</li>
-              <li className="text-black text-lg">FAQ</li>
+              <h3 className="text-sm text-primary mb-2">SUPPORT</h3>
+              <li className="text-primary text-[16px] mb-2 hover:underline">
+                Contact
+              </li>
+              <li className="text-primary text-[16px] mb-2 hover:underline">
+                FAQ
+              </li>
             </ul>
             <ul>
-              <h3 className="text-xl text-black mb-2">CONNECT</h3>
-              <li className="text-black text-lg">Instagram</li>
-              <li className="text-black text-lg">X</li>
+              <h3 className="text-sm text-primary mb-2">CONNECT</h3>
+              <li className="text-primary text-[16px] mb-2 hover:underline">
+                Instagram
+              </li>
+              <li className="text-primary text-[16px] mb-2 hover:underline">
+                X
+              </li>
             </ul>
           </div>
-        </div>
-        <div>
-          <Image
-            src={"/images/footer-images/svgviewer-png-output.png"}
-            height={500}
-            width={1920}
-            alt="logo"
-          />
         </div>
       </div>
     </footer>
