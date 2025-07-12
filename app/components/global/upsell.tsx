@@ -1,0 +1,31 @@
+import React from "react";
+import Card from "../sections/bestseller-card";
+
+type Product = {
+  images: string[];
+  title: string;
+  price: number;
+  id: number;
+};
+
+const Upsell = async () => {
+  const res = await fetch("http://localhost:3000/api/products", {
+    cache: "no-store",
+  });
+  const products = await res.json();
+
+  return (
+    <div className="">
+      <div>
+        <h3>You May Also Like</h3>
+        <div className="flex overflow-x-scroll">
+          {products.map((product: Product, i: number) => (
+            <Card key={i} product={product} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Upsell;
