@@ -15,8 +15,11 @@ const Header = () => {
   }
 
   useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "auto";
+    document.body.classList.toggle("no-scroll", isOpen);
+    return () => document.body.classList.remove("no-scroll");
   }, [isOpen]);
+
+  
 
   return (
     <header className="bg-transparent hover:bg-white py-4 z-[13] sticky top-0 transition-colors duration-200 ease-in-out">
