@@ -6,9 +6,14 @@ import Image from "next/image";
 import { Search, User, ShoppingCart } from "lucide-react";
 import CartDrawer from "./cart-drawer";
 import { useState, useEffect } from "react";
+import MegaMenu from "./mega-menu";
+import Discover from "./mega-menu-discover";
+import { motion } from "framer-motion";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenDiscover, setIsOpenDiscover] = useState(false);
+  const [isShopOpen, setIsShopOpen] = useState(false);
 
   function handleDrawerToggle(newState: boolean) {
     setIsOpen(newState);
@@ -19,25 +24,35 @@ const Header = () => {
     return () => document.body.classList.remove("no-scroll");
   }, [isOpen]);
 
-  
-
   return (
-    <header className="bg-transparent hover:bg-white py-4 z-[13] sticky top-0 transition-colors duration-200 ease-in-out">
-      <div className="container gap-2 hidden md:flex md:justify-between md:items-center">
-        <div className="flex gap-4">
-          <Link
-            className="text-[#4E342E] text-sm uppercase"
-            href={"/collections/all"}
+    <header className="bg-transparent hover:bg-white z-[13] sticky top-0 transition-colors duration-200 ease-in-out">
+      <div className="container gap-2 hidden md:flex md:justify-between md:items-center relative">
+        <div className="flex gap-4 items-center">
+          <div
+            className="relative py-6"
+            onMouseEnter={() => setIsShopOpen(true)}
+            onMouseLeave={() => setIsShopOpen(false)}
           >
-            Shop
-          </Link>
-          <Link className="text-[#4E342E] text-sm uppercase" href={"/about"}>
-            Discover
-          </Link>
+            <span className=" text-[#4E342E] text-sm uppercase cursor-pointer hover:font-extrabold hover:underline">
+              Shop
+            </span>
+          </div>
+
+          <div
+            onMouseEnter={() => setIsOpenDiscover(true)}
+            onMouseLeave={() => setIsOpenDiscover(false)}
+            className="relative py-6"
+          >
+            <span className="text-[#4E342E] text-sm uppercase cursor-pointer hover:font-extrabold hover:underline">
+              Discover
+            </span>
+          </div>
         </div>
+
         <Link className="text-[#4E342E] text-4xl" href="/">
           <Image src="/images/logo.png" alt="logo" height={40} width={128} />
         </Link>
+
         <div className="flex gap-4">
           <Search size={20} strokeWidth={0.8} />
           <Link className="text-[#4E342E] text-sm" href={"/account"}>
@@ -51,7 +66,36 @@ const Header = () => {
             />
           </div>
         </div>
+
+        {isShopOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="absolute left-0 top-full w-screen z-50 bg-white shadow-lg border-t border-b px-12 py-8 flex gap-10 text-sm"
+            onMouseEnter={() => setIsShopOpen(true)}
+            onMouseLeave={() => setIsShopOpen(false)}
+          >
+            <MegaMenu />
+          </motion.div>
+        )}
+
+        {isOpenDiscover && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="absolute left-0 top-full w-screen z-50 bg-white shadow-lg border-t border-b px-12 py-8 flex gap-10 text-sm"
+            onMouseEnter={() => setIsOpenDiscover(true)}
+            onMouseLeave={() => setIsOpenDiscover(false)}
+          >
+            <Discover />
+          </motion.div>
+        )}
       </div>
+
       <CartDrawer isOpen={isOpen} onToggle={handleDrawerToggle} />
     </header>
   );
@@ -60,4 +104,5 @@ const Header = () => {
 function MobileMenu() {
   return <div></div>;
 }
+
 export default Header;
