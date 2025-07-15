@@ -6,9 +6,14 @@ type Props = {
 };
 
 const Products = async ({ heading, subheading }: Props) => {
-  const res = await fetch("http://localhost:3000/api/products", {
-    cache: "no-store",
-  });
+  const res = await fetch(
+    `${
+      process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
+    }/api/products`,
+    {
+      cache: "no-store",
+    }
+  );
   const products = await res.json();
 
   return (

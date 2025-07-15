@@ -27,12 +27,12 @@ const page = async ({
 
   let response;
   if (slug === "all") {
-    response = await fetch(`http://localhost:3000/api/products?sort=${sort}`, {
+    response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/products?sort=${sort}`, {
       next: { revalidate: 3600 },
     });
   } else {
     response = await fetch(
-      `http://localhost:3000/api/collections/${slug}?sort=${sort}`,
+      `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/collections/${slug}?sort=${sort}`,
       {
         next: { revalidate: 3600 },
       }

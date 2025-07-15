@@ -14,7 +14,7 @@ type Props = {
 
 const ShopHederText = async ({ slug }: Props) => {
   const res = await fetch(
-    `http://localhost:3000/api/collections/collection/${slug}`
+    `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/collections/collection/${slug}`
   );
 
   if (!res.ok) {

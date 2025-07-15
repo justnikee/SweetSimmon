@@ -12,7 +12,11 @@ type Props = {
 };
 
 const ShopFilter = async () => {
-  const res = await fetch("http://localhost:3000/api/collections");
+  const res = await fetch(
+    `${
+      process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
+    }/api/collections`
+  );
   const collection = await res.json();
 
   return (
