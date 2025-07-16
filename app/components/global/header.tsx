@@ -14,10 +14,17 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenDiscover, setIsOpenDiscover] = useState(false);
   const [isShopOpen, setIsShopOpen] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
 
   function handleDrawerToggle(newState: boolean) {
     setIsOpen(newState);
   }
+
+  document.addEventListener("scroll", function () {
+    setScrollY(window.pageYOffset);
+  });
+
+  console.log(scrollY);
 
   useEffect(() => {
     document.body.classList.toggle("no-scroll", isOpen);
@@ -25,7 +32,11 @@ const Header = () => {
   }, [isOpen]);
 
   return (
-    <header className="bg-transparent hover:bg-white z-[13] sticky top-0 transition-colors duration-200 ease-in-out">
+    <header
+      className={`${
+        scrollY > 0 ? "bg-white" : "bg-transparent"
+      } hover:bg-white z-[13] sticky top-0 transition-colors duration-200 ease-in-out group`}
+    >
       <div className="container gap-2 hidden md:flex md:justify-between md:items-center relative">
         <div className="flex gap-4 items-center">
           <div
@@ -33,7 +44,11 @@ const Header = () => {
             onMouseEnter={() => setIsShopOpen(true)}
             onMouseLeave={() => setIsShopOpen(false)}
           >
-            <span className=" text-[#4E342E] text-sm uppercase cursor-pointer hover:font-extrabold hover:underline">
+            <span
+              className={`${
+                scrollY > 0 ? "text-primary" : "text-white"
+              } text-sm uppercase cursor-pointer hover:font-extrabold hover:underline group-hover:text-primary`}
+            >
               Shop
             </span>
           </div>
@@ -43,19 +58,23 @@ const Header = () => {
             onMouseLeave={() => setIsOpenDiscover(false)}
             className="relative py-6"
           >
-            <span className="text-[#4E342E] text-sm uppercase cursor-pointer hover:font-extrabold hover:underline">
+            <span
+              className={`${
+                scrollY > 0 ? "text-primary" : "text-white"
+              } text-sm uppercase cursor-pointer hover:font-extrabold hover:underline group-hover:text-primary`}
+            >
               Discover
             </span>
           </div>
         </div>
 
-        <Link className="text-[#4E342E] text-4xl" href="/">
+        <Link className="text-primary text-4xl" href="/">
           <Image src="/images/logo.png" alt="logo" height={40} width={128} />
         </Link>
 
         <div className="flex gap-4">
           <Search size={20} strokeWidth={0.8} />
-          <Link className="text-[#4E342E] text-sm" href={"/account"}>
+          <Link className="text-primary text-sm" href={"/account"}>
             <User size={20} strokeWidth={0.8} />
           </Link>
           <div onClick={() => setIsOpen(true)}>
