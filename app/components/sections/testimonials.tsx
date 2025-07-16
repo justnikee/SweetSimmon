@@ -59,13 +59,15 @@ const Testimonials = () => {
             <SplideSlide key={i}>
               <div className=" p-6 text-center flex flex-col gap-1 h-full">
                 <div className="flex gap-0.5 justify-center">
-                  {Array.from({ length: 5 }).map((i) => (
-                    <Star
-                      size={20}
-                      color="#ffffff"
-                      strokeWidth={0.75}
-                      absoluteStrokeWidth
-                    />
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <span key={i}>
+                      <Star
+                        size={20}
+                        color="#ffffff"
+                        strokeWidth={0.75}
+                        absoluteStrokeWidth
+                      />
+                    </span>
                   ))}
                 </div>
                 <h2 className="text-white text-lg leading-6 ">

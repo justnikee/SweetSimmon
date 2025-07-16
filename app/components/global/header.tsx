@@ -20,11 +20,11 @@ const Header = () => {
     setIsOpen(newState);
   }
 
-  document.addEventListener("scroll", function () {
-    setScrollY(window.pageYOffset);
-  });
-
-  console.log(scrollY);
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.pageYOffset);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     document.body.classList.toggle("no-scroll", isOpen);
