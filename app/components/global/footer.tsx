@@ -12,7 +12,7 @@ const Footer = () => {
               height={100}
               width={100}
               alt="Logo"
-              className="mb-8"
+              className="mb-8 w-16"
             />
             <p className="text-primary text-[12px] mb-4">LET'S CONNECT</p>
             <p className="text-primary text-sm">

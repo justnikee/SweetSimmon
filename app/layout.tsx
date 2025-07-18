@@ -4,6 +4,7 @@ import Header from "./components/global/header";
 import Footer from "./components/global/footer";
 import { myFont } from "./font";
 import AnnouncementBar from "./components/global/announcementBar";
+import ReduxProvider from "./redux/provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,10 +19,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${myFont.variable} antialiased`}>
-        <AnnouncementBar />
-        <Header />
-        {children}
-        <Footer />
+        <ReduxProvider>
+          <AnnouncementBar />
+          <Header />
+          {children}
+          <Footer />
+        </ReduxProvider>
       </body>
     </html>
   );

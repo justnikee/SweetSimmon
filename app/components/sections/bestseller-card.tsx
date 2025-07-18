@@ -13,15 +13,16 @@ type CardProduct = {
 };
 
 function Card({ product }: CardProduct) {
-  console.log(product, "card");
   return (
     <div className="">
-      <Link href={`${product.id}`}>
+      <Link className="group" href={`${product.id}`}>
         {product.images?.slice(0, 2).map((image, idx) => (
           <Image
             key={idx}
-            className={`h-full w-full object-cover ${
-              idx === 1 ? "absolute top-0 left-0 opacity-0 z-0" : ""
+            className={`h-full w-full max-h-[400px] object-cover transition-all duration-200 ease-in-out  ${
+              idx === 0
+                ? "absolute top-0 left-0 opacity-0 group-hover:opacity-100 z-10"
+                : "relative z-0"
             }`}
             src={image}
             alt="Product Image"
