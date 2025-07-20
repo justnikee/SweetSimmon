@@ -36,35 +36,37 @@ const ProductInfo = ({ product }: { product: Product }) => {
         <p className="text-sm leading-[18px] text-primary max-w-[500px]">
           {product.description}
         </p>
-        <div>
-          <button
-            onClick={decrease}
-            className="px-2 py-1 bg-gray-200 text-black rounded"
-          >
-            -
-          </button>
+        <div className="flex gap-3">
+          <div className="flex border border-lightblue w-fit">
+            <button
+              onClick={decrease}
+              className="px-3 py-1 text-primary rounded cursor-pointer"
+            >
+              -
+            </button>
 
-          <input
-            type="number"
-            value={quantity}
-            onChange={handleInputChange}
-            min={1}
-            className="w-12 text-center border rounded"
-          />
+            <input
+              type="number"
+              value={quantity}
+              onChange={handleInputChange}
+              min={1}
+              className="w-4 text-center rounded focus:outline-none focus:ring-0"
+            />
 
+            <button
+              onClick={increase}
+              className="px-3 py-1 text-primary rounded cursor-pointer"
+            >
+              +
+            </button>
+          </div>
           <button
-            onClick={increase}
-            className="px-2 py-1 bg-gray-200 text-black rounded"
+            onClick={handleAddToCart}
+            className="border-primary border uppercase text-sm bg-[#a6ccef] max-w-2xs w-full px-8 py-3 rounded-full cursor-pointer"
           >
-            +
+            Add To Cart
           </button>
         </div>
-        <button
-          onClick={handleAddToCart}
-          className="border-primary uppercase text-sm bg-[#a6ccef] w-fit px-8 py-3 rounded-full"
-        >
-          Add To Cart
-        </button>
       </div>
     </>
   );

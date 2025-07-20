@@ -1,7 +1,12 @@
+"use client";
+
 import { X, Plus, Minus } from "lucide-react";
 import React from "react";
 import Image from "next/image";
 import Button from "../ui/Button";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { useEffect, useRef } from "react";
 
 type CartDraerProp = {
   isOpen: boolean;
@@ -9,6 +14,16 @@ type CartDraerProp = {
 };
 
 const CartDrawer = ({ isOpen, onToggle }: CartDraerProp) => {
+  const items = useSelector((state: RootState) => state.cart.items);
+  const previousLength = useRef(items.length);
+
+  useEffect(() => {
+    if (items.length > previousLength.current) {
+      onToggle(true);
+    }
+    previousLength.current = items.length
+  }, [items.length, onToggle]);
+
   return (
     <div
       className={`fixed top-0 right-0 z-[9999] transition-transform ease-in-out duration-500 h-screen w-lg bg-white ${
@@ -18,7 +33,7 @@ const CartDrawer = ({ isOpen, onToggle }: CartDraerProp) => {
       <div className="p-6 relative w-full h-full">
         <div className="flex justify-between items-center ">
           <h3 className="uppercase text-lg text-primary">Shopping Cart</h3>
-          <span onClick={() => onToggle(false)}>
+          <span className="block" onClick={() => onToggle(false)}>
             <X
               className="w-5 h-5 text-primary transition-transform duration-200 hover:rotate-90 cursor-pointer"
               strokeWidth={1}
