@@ -17,12 +17,36 @@ datasource db {
 model Product {
   id Int @id @default(autoincrement())
   title String
+  slug            String?
   description String
   price Int
-  images String[]
-  createdAt DateTime @default(now())
+  images String[] 
+  inStock         Boolean   @default(true)
+
   categoryId Int?
   category Category? @relation(fields: [categoryId], references: [id])
+
+
+  tags            Tag[]     @relation("ProductTags")
+
+  isSubscribable              Boolean  @default(false)
+  subscriptionDiscountPercent Int?
+  subscriptionInterval        String? 
+
+  benefits         String[]      
+  skinTypes        String[]         
+  productType      String?          
+  volume           String?            
+
+  details                String?
+  keyIngredients         String?
+  clinicalStudies        String?
+  howToUse               String?
+  fullIngredients        String?
+  sustainablePackaging   String?
+
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime?  @updatedAt
 }
 
 model Category {
@@ -31,4 +55,10 @@ model Category {
   slug String @unique
   description String
   products Product[]
+}
+
+model Tag {
+  id        String    @id @default(cuid())
+  name      String    @unique
+  products  Product[] @relation("ProductTags")
 }

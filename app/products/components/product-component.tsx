@@ -7,7 +7,21 @@ type Product = {
   title: string;
   description: string;
   price: number;
-  images: string[];
+  tags: string[];
+  images: string[]
+  inStock: boolean;
+  isSubscribable: boolean;
+  subscriptionDiscountPercent: number;
+  subscriptionInterval: string;
+  benefits: string[];
+  skinTypes: string[];
+  volume: string;
+  details: string;
+  keyIngredients: string;
+  clinicalStudies: string;
+  howToUse: string;
+  fullIngredients: string;
+  sustainablePackaging: string;
 };
 
 const ProductComponent = ({ product }: { product: Product }) => {

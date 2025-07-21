@@ -9,6 +9,20 @@ type Product = {
   title: string;
   description: string;
   price: number;
+  tags: string[];
+  inStock: boolean;
+  isSubscribable: boolean;
+  subscriptionDiscountPercent: number;
+  subscriptionInterval: string;
+  benefits: string[];
+  skinTypes: string[];
+  volume: string;
+  details: string;
+  keyIngredients: string;
+  clinicalStudies: string;
+  howToUse: string;
+  fullIngredients: string;
+  sustainablePackaging: string;
 };
 
 const ProductInfo = ({ product }: { product: Product }) => {
@@ -29,7 +43,12 @@ const ProductInfo = ({ product }: { product: Product }) => {
   return (
     <>
       <div className="text-primary flex flex-col gap-4">
-        <h2 className="text-3xl">{product.title}</h2>
+        <h2 className="text-3xl flex justify-between w-full">
+          {product.title}{" "}
+          <span className="text-[12px]">
+            {product.inStock ? "In Stock" : "Out of Stock"}
+          </span>
+        </h2>
         <p>€{product.price}</p>
         <p className="text-sm leading-[18px] text-primary max-w-[500px]">
           {product.description}
