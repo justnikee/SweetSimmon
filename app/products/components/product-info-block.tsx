@@ -26,8 +26,6 @@ const ProductInfo = ({ product }: { product: Product }) => {
     dispatch(addItem({ ...product, quantity }));
   }
 
-  console.log(quantity);
-
   return (
     <>
       <div className="text-primary flex flex-col gap-4">

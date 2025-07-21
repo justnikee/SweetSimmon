@@ -11,6 +11,15 @@ type CartState = {
   items: CartItem[];
 };
 
+type UpdateQuantityPayload = {
+  id: number;
+  quantity: number;
+};
+
+type RemoveItem = {
+  id: number;
+};
+
 const initialState = {
   items: [] as Array<{
     id: number;
@@ -34,8 +43,15 @@ const cartSlice = createSlice({
         state.items.push(item);
       }
     },
-    removeItem(state, action: PayloadAction<CartItem>) {
-      state.items.filter((item) => item.id !== action.payload.id);
+    removeItem(state, action: PayloadAction<number>) {
+      state.items = state.items.filter((item) => item.id !== action.payload);
+    },
+    updateQuantity(state, action: PayloadAction<UpdateQuantityPayload>) {
+      const { id, quantity } = action.payload;
+      const item = state.items.find((item) => item.id === id);
+      if (item) {
+        item.quantity = quantity;
+      }
     },
     clearCart(state) {
       state.items = [];
@@ -43,5 +59,6 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addItem, removeItem, clearCart } = cartSlice.actions;
+export const { addItem, removeItem, clearCart, updateQuantity } =
+  cartSlice.actions;
 export default cartSlice.reducer;

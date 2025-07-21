@@ -95,3 +95,25 @@ input[type="number"]::-webkit-outer-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
+/* overlay */
+
+.overlay {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
+  z-index: 12;
+  background: #000;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  pointer-events: none;
+}
+
+.overlay.active {
+  opacity: 0.3;
+  transition: opacity 0.3s ease-in-out;
+  display: block;
+  pointer-events: initial;
+}

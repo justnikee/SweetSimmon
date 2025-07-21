@@ -25,6 +25,7 @@ export default function RootLayout({
           {children}
           <Footer />
         </ReduxProvider>
+        <div className="overlay"></div>
       </body>
     </html>
   );
