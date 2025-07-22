@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useRef } from 'react';
-import Image from 'next/image';
-import { Splide, SplideSlide } from '@splidejs/react-splide';
-import type { Splide as SplideInstance } from '@splidejs/splide';
-import '@splidejs/react-splide/css';
+import React, { useRef } from "react";
+import Image from "next/image";
+import { Splide, SplideSlide } from "@splidejs/react-splide";
+import type { Splide as SplideInstance } from "@splidejs/splide";
+import "@splidejs/react-splide/css";
 
 type Images = {
   images: string[];
@@ -20,9 +20,9 @@ const ImageBlock = ({ images }: Images) => {
   };
 
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-[2px]">
       <div className="shrink-0">
-        <div className="flex flex-col gap-2 overflow-y-auto">
+        <div className="flex flex-col gap-[2px] overflow-y-auto">
           {images?.map((image, i) => (
             <button key={i} onClick={() => handleThumbnailClick(i)}>
               <Image
@@ -40,8 +40,8 @@ const ImageBlock = ({ images }: Images) => {
       <div className="w-full">
         <Splide
           options={{
-            direction: 'ttb',
-            height: '42rem',
+            direction: "ttb",
+            height: "42rem",
             wheel: true,
             arrows: false,
             pagination: false,

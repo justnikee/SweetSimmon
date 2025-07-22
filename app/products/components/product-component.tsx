@@ -8,7 +8,7 @@ type Product = {
   description: string;
   price: number;
   tags: string[];
-  images: string[]
+  images: string[];
   inStock: boolean;
   isSubscribable: boolean;
   subscriptionDiscountPercent: number;
@@ -27,8 +27,8 @@ type Product = {
 const ProductComponent = ({ product }: { product: Product }) => {
   return (
     <div className="bg-white">
-      <div className="container flex gap-10">
-        <div className="flex-1">
+      <div className="container flex gap-6 h-full relative">
+        <div className="flex-1 sticky top-[77px]">
           <ImageBlock images={product.images} />
         </div>
         <div className="flex-1">

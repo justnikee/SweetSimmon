@@ -9,6 +9,8 @@
 @theme {
   --color-primary: #231f20;
   --color-lightblue: #a3bfdb;
+  --color-primary-blue: #264ebb;
+  --color-super-lightblue: #d5e0ea;
 }
 
 @theme inline {

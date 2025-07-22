@@ -3,6 +3,13 @@
 import React, { useState } from "react";
 import { addItem } from "@/store/slice/cartSlice";
 import { useDispatch } from "react-redux";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import Image from "next/image";
 
 type Product = {
   id: number;
@@ -42,19 +49,66 @@ const ProductInfo = ({ product }: { product: Product }) => {
 
   return (
     <>
-      <div className="text-primary flex flex-col gap-4">
+      <div className="text-primary flex flex-col">
         <h2 className="text-3xl flex justify-between w-full">
           {product.title}{" "}
-          <span className="text-[12px]">
-            {product.inStock ? "In Stock" : "Out of Stock"}
+          <span className="text-[10px] flex items-center gap-1 leading-3">
+            {product.inStock ? (
+              <>
+                <span className="w-1.5 h-1.5 bg-[#8edf5e] rounded-full block"></span>
+                In Stock
+              </>
+            ) : (
+              "Out of Stock"
+            )}
           </span>
         </h2>
-        <p>€{product.price}</p>
-        <p className="text-sm leading-[18px] text-primary max-w-[500px]">
-          {product.description}
-        </p>
-        <div className="flex gap-3">
-          <div className="flex border border-lightblue w-fit">
+        <div className="flex gap-0.5 text-sm mt-2.5">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Image
+              key={i}
+              src={"/images/icons/star.png"}
+              height={16}
+              width={16}
+              alt="star"
+              className="object-contain"
+            />
+          ))}
+          <span className="ml-2">(20 Reviews)</span>
+        </div>
+
+        <p className="my-3.5">€ {product.price}</p>
+        <div className="flex flex-col gap-4 my-4">
+          <div className="flex flex-wrap gap-1">
+            {product.benefits?.map((tag, key) => (
+              <span
+                key={key}
+                className="uppercase text-sm leading-4.5 bg-super-lightblue text-primary-blue px-2 py-0.5"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          <div className="text-sm text-primary">
+            <span>Skin Types: </span>
+            {product.skinTypes.map((type, i) => (
+              <span key={i}>
+                {type}
+                {product.skinTypes.length - 1 ? ", " : ""}
+              </span>
+            ))}
+          </div>
+
+          <p className="text-sm leading-[18px] text-primary max-w-[500px]">
+            {product.description}
+          </p>
+        </div>
+
+        <DeliveryOptions />
+
+        <div className="flex gap-3 mt-4">
+          <div className="flex border border-[#495a6f] w-fit">
             <button
               onClick={decrease}
               className="px-3 py-1 text-primary rounded cursor-pointer"
@@ -67,7 +121,7 @@ const ProductInfo = ({ product }: { product: Product }) => {
               value={quantity}
               onChange={handleInputChange}
               min={1}
-              className="w-4 text-center rounded focus:outline-none focus:ring-0"
+              className="w-4 text-center gap-1 rounded focus:outline-none focus:ring-0"
             />
 
             <button
@@ -81,12 +135,88 @@ const ProductInfo = ({ product }: { product: Product }) => {
             onClick={handleAddToCart}
             className="border-primary border uppercase text-sm bg-[#a6ccef] max-w-2xs w-full px-8 py-3 rounded-full cursor-pointer"
           >
-            Add To Cart
+            Add To Bag
           </button>
         </div>
+
+        <Accordion className="mt-8" type="single" collapsible>
+          <AccordionItem value="item-1">
+            <AccordionTrigger>Details</AccordionTrigger>
+            <AccordionContent>{product.details}</AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-2">
+            <AccordionTrigger>Key Ingredients</AccordionTrigger>
+            <AccordionContent>{product.keyIngredients}</AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-3">
+            <AccordionTrigger>Clinical Studies</AccordionTrigger>
+            <AccordionContent>{product.clinicalStudies}</AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-4">
+            <AccordionTrigger>How To Use</AccordionTrigger>
+            <AccordionContent>{product.howToUse}</AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-5">
+            <AccordionTrigger>Full Ingredients</AccordionTrigger>
+            <AccordionContent>{product.fullIngredients}</AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-6">
+            <AccordionTrigger>Sustainable Packaging</AccordionTrigger>
+            <AccordionContent>{product.sustainablePackaging}</AccordionContent>
+          </AccordionItem>
+        </Accordion>
       </div>
     </>
   );
 };
+
+function DeliveryOptions() {
+  const [selected, setSelected] = useState("subscribe");
+
+  return (
+    <div className="py-4 space-y-2">
+      <label
+        className={`flex items-start justify-between border p-4 cursor-pointer border-[#495a6f]`}
+      >
+        <div className="flex items-center">
+          <input
+            type="radio"
+            name="delivery"
+            value="subscribe"
+            checked={selected === "subscribe"}
+            onChange={() => setSelected("subscribe")}
+            className="mr-4"
+          />
+          <div className="flex items-center">
+            <p className="font-extrabold text-sm">Subscribe + save 15%</p>
+            <a href="#" className="text-[12px] text-[#495a6f] underline ml-4">
+              Learn more
+            </a>
+          </div>
+        </div>
+
+        <select className="border px-2 py-1 text-[12px] border-primary">
+          <option>every 30 days</option>
+          <option>every 60 days</option>
+          <option>every 90 days</option>
+        </select>
+      </label>
+
+      <label
+        className={`flex items-center border p-4 cursor-pointer border-[#495a6f]`}
+      >
+        <input
+          type="radio"
+          name="delivery"
+          value="oneTime"
+          checked={selected === "oneTime"}
+          onChange={() => setSelected("oneTime")}
+          className="mr-4"
+        />
+        <span className="font-extrabold text-sm">One time delivery</span>
+      </label>
+    </div>
+  );
+}
 
 export default ProductInfo;
