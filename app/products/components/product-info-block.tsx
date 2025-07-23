@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { addItem } from "@/store/slice/cartSlice";
 import { useDispatch } from "react-redux";
 import {
@@ -30,6 +30,10 @@ type Product = {
   howToUse: string;
   fullIngredients: string;
   sustainablePackaging: string;
+};
+
+type DeliveryOptionProp = {
+  subscribable: boolean;
 };
 
 const ProductInfo = ({ product }: { product: Product }) => {
@@ -105,7 +109,7 @@ const ProductInfo = ({ product }: { product: Product }) => {
           </p>
         </div>
 
-        <DeliveryOptions />
+        <DeliveryOptions subscribable={product.isSubscribable} />
 
         <div className="flex gap-3 mt-4">
           <div className="flex border border-[#495a6f] w-fit">
@@ -140,67 +144,86 @@ const ProductInfo = ({ product }: { product: Product }) => {
         </div>
 
         <Accordion className="mt-8" type="single" collapsible>
-          <AccordionItem value="item-1">
-            <AccordionTrigger>Details</AccordionTrigger>
-            <AccordionContent>{product.details}</AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="item-2">
-            <AccordionTrigger>Key Ingredients</AccordionTrigger>
-            <AccordionContent>{product.keyIngredients}</AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="item-3">
-            <AccordionTrigger>Clinical Studies</AccordionTrigger>
-            <AccordionContent>{product.clinicalStudies}</AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="item-4">
-            <AccordionTrigger>How To Use</AccordionTrigger>
-            <AccordionContent>{product.howToUse}</AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="item-5">
-            <AccordionTrigger>Full Ingredients</AccordionTrigger>
-            <AccordionContent>{product.fullIngredients}</AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="item-6">
-            <AccordionTrigger>Sustainable Packaging</AccordionTrigger>
-            <AccordionContent>{product.sustainablePackaging}</AccordionContent>
-          </AccordionItem>
+          {product.details && (
+            <AccordionItem value="item-1">
+              <AccordionTrigger>Details</AccordionTrigger>
+              <AccordionContent>{product.details}</AccordionContent>
+            </AccordionItem>
+          )}
+          {product.keyIngredients && (
+            <AccordionItem value="item-2">
+              <AccordionTrigger>Key Ingredients</AccordionTrigger>
+              <AccordionContent>{product.keyIngredients}</AccordionContent>
+            </AccordionItem>
+          )}
+          {product.clinicalStudies && (
+            <AccordionItem value="item-3">
+              <AccordionTrigger>Clinical Studies</AccordionTrigger>
+              <AccordionContent>{product.clinicalStudies}</AccordionContent>
+            </AccordionItem>
+          )}
+          {product.howToUse && (
+            <AccordionItem value="item-4">
+              <AccordionTrigger>How To Use</AccordionTrigger>
+              <AccordionContent>{product.howToUse}</AccordionContent>
+            </AccordionItem>
+          )}
+          {product.fullIngredients && (
+            <AccordionItem value="item-5">
+              <AccordionTrigger>Full Ingredients</AccordionTrigger>
+              <AccordionContent>{product.fullIngredients}</AccordionContent>
+            </AccordionItem>
+          )}
+          {product.sustainablePackaging && (
+            <AccordionItem value="item-6">
+              <AccordionTrigger>Sustainable Packaging</AccordionTrigger>
+              <AccordionContent>
+                {product.sustainablePackaging}
+              </AccordionContent>
+            </AccordionItem>
+          )}
         </Accordion>
       </div>
     </>
   );
 };
 
-function DeliveryOptions() {
+function DeliveryOptions({ subscribable }: DeliveryOptionProp) {
   const [selected, setSelected] = useState("subscribe");
+  useEffect(() => {
+    setSelected(subscribable ? "subscribe" : "oneTime");
+  }, [subscribable]);
 
   return (
     <div className="py-4 space-y-2">
-      <label
-        className={`flex items-start justify-between border p-4 cursor-pointer border-[#495a6f]`}
-      >
-        <div className="flex items-center">
-          <input
-            type="radio"
-            name="delivery"
-            value="subscribe"
-            checked={selected === "subscribe"}
-            onChange={() => setSelected("subscribe")}
-            className="mr-4"
-          />
+      {subscribable && (
+        <label
+          className={`flex items-start justify-between border p-4 cursor-pointer border-[#495a6f]`}
+        >
           <div className="flex items-center">
-            <p className="font-extrabold text-sm">Subscribe + save 15%</p>
-            <a href="#" className="text-[12px] text-[#495a6f] underline ml-4">
-              Learn more
-            </a>
+            <input
+              type="radio"
+              name="delivery"
+              value="subscribe"
+              checked={selected === "subscribe"}
+              onChange={() => setSelected("subscribe")}
+              className="mr-4"
+            />
+            <div className="flex items-center">
+              <p className="font-extrabold text-sm">Subscribe + save 15%</p>
+              <a href="#" className="text-[12px] text-[#495a6f] underline ml-4">
+                Learn more
+              </a>
+            </div>
           </div>
-        </div>
 
-        <select className="border px-2 py-1 text-[12px] border-primary">
-          <option>every 30 days</option>
-          <option>every 60 days</option>
-          <option>every 90 days</option>
-        </select>
-      </label>
+          <select className="border px-2 py-1 text-[12px] border-primary">
+            <option>every 30 days</option>
+            <option>every 60 days</option>
+            <option>every 90 days</option>
+          </select>
+        </label>
+      )}
 
       <label
         className={`flex items-center border p-4 cursor-pointer border-[#495a6f]`}

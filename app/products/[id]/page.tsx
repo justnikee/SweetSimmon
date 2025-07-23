@@ -6,10 +6,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const res = await fetch(
     `${
       process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
-    }/api/products/${id}`,
-    {
-      next: { revalidate: 3600 },
-    }
+    }/api/products/${id}`
   );
   const data = await res.json();
   const product = await data.product;
