@@ -23,7 +23,7 @@ const ImageBlock = ({ images, tags }: Images) => {
   };
 
   return (
-    <div className="flex gap-0.5">
+    <div className="flex gap-0.5 sticky top-[77px]">
       {/* Thumbnails */}
       <div className="shrink-0 max-h-[42rem] overflow-y-auto scrollbar-hide flex flex-col gap-0.5 pr-0.5">
         {images?.map((image, i) => (
@@ -48,9 +48,11 @@ const ImageBlock = ({ images, tags }: Images) => {
       </div>
 
       {/* Main Slider */}
-      <div className="w-full">
+      <div className="w-full relative">
         {tags?.map((tag) => (
-          <span className="bg-lightblue uppercase text-sm">{tag}</span>
+          <span className="bg-super-lightblue uppercase text-sm absolute top-3 block left-3 z-10 text-primary-blue px-1 py-0.5">
+            {tag}
+          </span>
         ))}
         <Splide
           options={{

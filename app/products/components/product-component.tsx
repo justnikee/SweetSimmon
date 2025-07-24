@@ -28,7 +28,7 @@ const ProductComponent = ({ product }: { product: Product }) => {
   return (
     <div className="bg-white">
       <div className="container flex gap-6 h-full relative">
-        <div className="flex-1 sticky top-[77px]">
+        <div className="flex-1">
           <ImageBlock tags={product.tags} images={product.images} />
         </div>
         <div className="flex-1">
