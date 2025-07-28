@@ -9,6 +9,7 @@ type Product = {
   title: string;
   images: string[];
   price: number;
+  slug: string;
 };
 
 const page = async ({
@@ -60,7 +61,7 @@ const page = async ({
         <ShopHederText slug={slug} />
       </div>
       <ShopFilter />
-      <div className="grid lg:grid-cols-4 md:grid-cols-3 px-8 gap-0.5">
+      <div className="grid lg:grid-cols-4 md:grid-cols-3 px-8 gap-x-1 gap-y-8">
         {products?.map((product) => (
           <ShopCards
             key={product.id}
@@ -68,6 +69,7 @@ const page = async ({
             title={product.title}
             price={product.price}
             images={product.images}
+            slug={product.slug}
           />
         ))}
       </div>

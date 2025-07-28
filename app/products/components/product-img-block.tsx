@@ -49,8 +49,11 @@ const ImageBlock = ({ images, tags }: Images) => {
 
       {/* Main Slider */}
       <div className="w-full relative">
-        {tags?.map((tag) => (
-          <span className="bg-super-lightblue uppercase text-sm absolute top-3 block left-3 z-10 text-primary-blue px-1 py-0.5">
+        {tags?.map((tag, i) => (
+          <span
+            key={i}
+            className="bg-super-lightblue uppercase text-sm absolute top-3 block left-3 z-10 text-primary-blue px-1 py-0.5"
+          >
             {tag}
           </span>
         ))}

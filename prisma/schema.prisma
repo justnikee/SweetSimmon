@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
   output   = "../app/generated/prisma"
@@ -10,44 +9,37 @@ datasource db {
 }
 
 model Product {
-  id              Int @id @default(autoincrement())
-  title           String
-  slug            String?
-  description     String
-  price           Int
-  images          String[] 
-  inStock         Boolean   @default(true)
-
-  categoryId      Int?
-  category        Category? @relation(fields: [categoryId], references: [id])
-
-
-  tags            String[]
-
-  isSubscribable  Boolean  @default(false)
+  id                          Int       @id @default(autoincrement())
+  title                       String
+  description                 String
+  price                       Int
+  images                      String[]
+  createdAt                   DateTime  @default(now())
+  categoryId                  Int?
+  benefits                    String[]
+  clinicalStudies             String?
+  details                     String?
+  fullIngredients             String?
+  howToUse                    String?
+  inStock                     Boolean   @default(true)
+  isSubscribable              Boolean   @default(false)
+  keyIngredients              String?
+  productType                 String?
+  skinTypes                   String[]
+  slug                        String?   @unique
   subscriptionDiscountPercent Int?
-  subscriptionInterval String? 
-
-  benefits         String[]      
-  skinTypes        String[]         
-  productType      String?          
-  volume           String?            
-
-  details                String?
-  keyIngredients         String?
-  clinicalStudies        String?
-  howToUse               String?
-  fullIngredients        String?
-  sustainablePackaging   String?
-
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime?  @updatedAt
+  subscriptionInterval        String?
+  sustainablePackaging        String?
+  updatedAt                   DateTime? @updatedAt
+  volume                      String?
+  tags                        String[]
+  category                    Category? @relation(fields: [categoryId], references: [id])
 }
 
 model Category {
-  id  Int @id @default(autoincrement())
-  name String @unique
-  slug String @unique
+  id          Int       @id @default(autoincrement())
+  name        String    @unique
+  slug        String    @unique
   description String
-  products Product[]
+  products    Product[]
 }

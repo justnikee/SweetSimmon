@@ -20,7 +20,7 @@ const ShopFilter = async () => {
   const collection = await res.json();
 
   return (
-    <div className="border-t border-b border-[#A3BFDB] px-8 py-4 mb-5 flex justify-between items-center sticky top-[72px] bg-white z-10">
+    <div className="border-t border-b border-[#A3BFDB] px-8 py-4 mb-5 flex justify-between items-center sticky top-[72px] bg-white">
       <div className="flex gap-6">
         <Link
           className="text-sm leading-[18px] text-primary"

@@ -56,7 +56,7 @@ export default function FilterDrawer() {
         <Image src={"/images/filter.png"} height={12} width={12} alt="filter" />
       </div>
       <div
-        className={`absolute h-screen w-lg bg-white top-0 z-[11] p-8 transition-all duration-500 ease-in-out ${
+        className={`fixed h-screen w-lg bg-white top-0 z-[100] p-8 transition-all duration-500 ease-in-out ${
           drawerOpen ? "right-0" : "-right-[32rem]"
         }`}
       >
@@ -131,9 +131,9 @@ export default function FilterDrawer() {
       </div>
       <div
         onClick={() => setDrawerOpen(false)}
-        className={`${
+        className={`z-10 ${
           drawerOpen
-            ? "opacity-30 z-[10] bg-black absolute top-0 left-0 w-screen h-screen body-overflow-hidden cursor-pointer"
+            ? "opacity-30 z-[10] bg-black fixed top-0 left-0 w-screen h-screen body-overflow-hidden cursor-pointer"
             : ""
         }`}
       ></div>
