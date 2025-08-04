@@ -43,6 +43,13 @@ const Banner = () => {
           />
         </SplideSlide>
       </Splide>
+      <Image
+        className="absolute top-1/4 left-1/2 transform -translate-x-1/2 "
+        src={"/images/site-logo/logo.png"}
+        height={400}
+        width={600}
+        alt="site logo"
+      />
     </section>
   );
 };
