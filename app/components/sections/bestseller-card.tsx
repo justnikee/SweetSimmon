@@ -6,6 +6,7 @@ type Product = {
   title: string;
   price: number;
   id: number;
+  slug: string;
 };
 
 type CardProduct = {
@@ -15,7 +16,7 @@ type CardProduct = {
 function Card({ product }: CardProduct) {
   return (
     <div className="">
-      <Link className="group" href={`${product.id}`}>
+      <Link className="group" href={`/products/${product.slug}`}>
         {product.images?.slice(0, 2).map((image, idx) => (
           <Image
             key={idx}

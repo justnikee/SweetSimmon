@@ -5,6 +5,8 @@ import Footer from "./components/global/footer";
 import { myFont } from "./font";
 import AnnouncementBar from "./components/global/announcementBar";
 import ReduxProvider from "./redux/provider";
+import CartDrawer from "./components/global/cart-drawer";
+import FilterDrawer from "./products/components/filter-drawer";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,6 +26,8 @@ export default function RootLayout({
           <Header />
           {children}
           <Footer />
+          <CartDrawer />
+           <FilterDrawer />
         </ReduxProvider>
         <div className="overlay"></div>
       </body>

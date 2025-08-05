@@ -2,17 +2,23 @@
 
 import React from "react";
 import { useState } from "react";
-import Image from "next/image";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { closeFilter } from "@/store/slice/filterSlice";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 export default function FilterDrawer() {
+  const dispatch = useDispatch();
+
+  const drawerOpen = useSelector((state: RootState) => state.filter.isOpen);
+
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
   const currentSort = searchParams.get("sort");
   const [selected, setSelected] = useState<string | null>(currentSort);
-  const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
 
   function handleCheckboxChange(value: string) {
     setSelected((prev) => (prev === value ? null : value));
@@ -34,27 +40,19 @@ export default function FilterDrawer() {
     }
 
     router.push(`${pathname}?${params.toString()}`);
-    setDrawerOpen(false);
+    dispatch(closeFilter());
   }
 
   function handleClearAll() {
     setSelected(null);
-    // Remove sort parameter from URL
     const params = new URLSearchParams(searchParams);
     params.delete("sort");
     router.push(`${pathname}?${params.toString()}`);
-    setDrawerOpen(false);
+    dispatch(closeFilter());
   }
 
   return (
     <div className="">
-      <div
-        onClick={() => setDrawerOpen(true)}
-        className="flex gap-2 items-center cursor-pointer"
-      >
-        <p className="uppercase text-sm">Filter</p>
-        <Image src={"/images/filter.png"} height={12} width={12} alt="filter" />
-      </div>
       <div
         className={`fixed h-screen w-lg bg-white top-0 z-[100] p-8 transition-all duration-500 ease-in-out ${
           drawerOpen ? "right-0" : "-right-[32rem]"
@@ -64,7 +62,7 @@ export default function FilterDrawer() {
           <div className="flex justify-between">
             <span className="uppercase text-primary text-[12px]">Filter</span>
             <span
-              onClick={() => setDrawerOpen(false)}
+              onClick={() => dispatch(closeFilter())}
               className="uppercase text-primary text-[12px] cursor-pointer"
             >
               Close
@@ -130,7 +128,7 @@ export default function FilterDrawer() {
         </div>
       </div>
       <div
-        onClick={() => setDrawerOpen(false)}
+        onClick={() => dispatch(closeFilter())}
         className={`z-10 ${
           drawerOpen
             ? "opacity-30 z-[10] bg-black fixed top-0 left-0 w-screen h-screen body-overflow-hidden cursor-pointer"

@@ -9,6 +9,7 @@ type CartItem = {
 
 type CartState = {
   items: CartItem[];
+  isOpen: boolean;
 };
 
 type UpdateQuantityPayload = {
@@ -20,13 +21,9 @@ type RemoveItem = {
   id: number;
 };
 
-const initialState = {
-  items: [] as Array<{
-    id: number;
-    title: string;
-    price: number;
-    quantity: number;
-  }>,
+const initialState: CartState = {
+  items: [],
+  isOpen: false,
 };
 
 const cartSlice = createSlice({
@@ -42,6 +39,8 @@ const cartSlice = createSlice({
       } else {
         state.items.push(item);
       }
+
+      state.isOpen = true;
     },
     removeItem(state, action: PayloadAction<number>) {
       state.items = state.items.filter((item) => item.id !== action.payload);
@@ -56,9 +55,21 @@ const cartSlice = createSlice({
     clearCart(state) {
       state.items = [];
     },
+    openCart(state) {
+      state.isOpen = true;
+    },
+    closeCart(state) {
+      state.isOpen = false;
+    },
   },
 });
 
-export const { addItem, removeItem, clearCart, updateQuantity } =
-  cartSlice.actions;
+export const {
+  addItem,
+  removeItem,
+  clearCart,
+  updateQuantity,
+  closeCart,
+  openCart,
+} = cartSlice.actions;
 export default cartSlice.reducer;

@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { removeItem, updateQuantity } from "@/store/slice/cartSlice";
+import { removeItem, updateQuantity, closeCart } from "@/store/slice/cartSlice";
 
 type CartItemProps = {
   item: {
@@ -38,19 +38,10 @@ type CartDraerProp = {
   onToggle: (newState: boolean) => void;
 };
 
-const CartDrawer = ({ isOpen, onToggle }: CartDraerProp) => {
+const CartDrawer = () => {
+  const dispatch = useDispatch();
   const items = useSelector((state: RootState) => state.cart.items);
-  const previousTotalQuantity = useRef(0);
-
-  useEffect(() => {
-    const totalQuantity = items.reduce((sum, item) => sum + item.quantity, 0);
-
-    if (totalQuantity > previousTotalQuantity.current) {
-      onToggle(true);
-    }
-
-    previousTotalQuantity.current = totalQuantity;
-  }, [items, onToggle]);
+  const isOpen = useSelector((state: RootState) => state.cart.isOpen);
 
   if (isOpen) {
     document.querySelector(".overlay")?.classList.add("active");
@@ -70,7 +61,7 @@ const CartDrawer = ({ isOpen, onToggle }: CartDraerProp) => {
       <div className="p-6 relative w-full h-full">
         <div className="flex justify-between items-center ">
           <h3 className="uppercase text-lg text-primary">Shopping Cart</h3>
-          <span className="block" onClick={() => onToggle(false)}>
+          <span className="block" onClick={() => dispatch(closeCart())}>
             <X
               className="w-5 h-5 text-primary transition-transform duration-200 hover:rotate-90 cursor-pointer"
               strokeWidth={1}

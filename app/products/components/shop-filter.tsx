@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import FilterDrawer from "./filter-drawer";
+import FilterButton from "./filter-button";
 
 type Category = {
   slug: string;
@@ -38,7 +38,7 @@ const ShopFilter = async () => {
           </Link>
         ))}
       </div>
-      <FilterDrawer />
+      <FilterButton />
     </div>
   );
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import image1 from "/public/images/banner-images/Aevi-01.webp";
 import image2 from "/public/images/banner-images/Aevi-02.webp";
@@ -14,6 +14,14 @@ type SlideProp = {
 };
 
 const Banner = () => {
+  const [scrollY, setScrollY] = useState(0);
+  console.log(scrollY);
+  useEffect(() => {
+    const getScroll = () => setScrollY(window.pageYOffset);
+    window.addEventListener("scroll", getScroll);
+    return () => window.removeEventListener("scroll", getScroll);
+  }, []);
+
   return (
     <section className="-mt-[120px] z-0 banner">
       <Splide
@@ -39,12 +47,14 @@ const Banner = () => {
           <BannerSlides
             title="SKIN DETOX WITH THE CLARIFYING CLAY MASK"
             image={image2}
-            url="/products/3"
+            url="/products/clarifying-clay-mask"
           />
         </SplideSlide>
       </Splide>
       <Image
-        className="absolute top-1/4 left-1/2 transform -translate-x-1/2 "
+        className={`absolute top-1/4 left-1/2 transform -translate-x-1/2 transition ease-in-out duration-150 ${
+          scrollY < 1 ? "opactiy-1" : "opacity-0"
+        }`}
         src={"/images/site-logo/logo.png"}
         height={400}
         width={600}
