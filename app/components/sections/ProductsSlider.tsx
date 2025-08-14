@@ -10,6 +10,7 @@ type Product = {
   title: string;
   price: number;
   id: number;
+  slug: string
 };
 
 function ProductsSlider({ products }: { products: Product[] }) {

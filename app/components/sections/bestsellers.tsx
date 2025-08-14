@@ -1,21 +1,13 @@
-import ProductsSlider from "./ProductsSlider";
+import { Suspense } from "react";
+import ProductsSliderWrapper from "./ProductsSliderWrapper";
+import Bestseller from "../skeletons/bestseller";
 
 type Props = {
   heading: string;
   subheading: string;
 };
 
-const Products = async ({ heading, subheading }: Props) => {
-  const res = await fetch(
-    `${
-      process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
-    }/api/products`,
-    {
-      cache: "no-store",
-    }
-  );
-  const products = await res.json();
-
+const Products = ({ heading, subheading }: Props) => {
   return (
     <section className="flex justify-center py-14">
       <div className="max-w-[1440px] px-2 w-full">
@@ -23,7 +15,10 @@ const Products = async ({ heading, subheading }: Props) => {
           <h2 className="text-4xl leading-10 text-primary mb-2">{heading}</h2>
           <p className="text-sm leading-4.5">{subheading}</p>
         </div>
-        <ProductsSlider products={products.slice(0, 8)} />
+
+        <Suspense fallback={<Bestseller />}>
+          <ProductsSliderWrapper />
+        </Suspense>
       </div>
     </section>
   );
