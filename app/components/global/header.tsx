@@ -11,6 +11,7 @@ import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { openCart } from "@/store/slice/cartSlice";
+import { openSearchBar } from "@/store/slice/searchSlice";
 
 const Header = () => {
   const [isOpenDiscover, setIsOpenDiscover] = useState(false);
@@ -82,7 +83,12 @@ const Header = () => {
         </Link>
 
         <div className="flex gap-4">
-          <Search size={20} strokeWidth={0.8} />
+          <div
+            onClick={() => dispatch(openSearchBar())}
+            className="cursor-pointer"
+          >
+            <Search size={20} strokeWidth={0.8} />
+          </div>
           <Link className="text-primary text-sm" href={"/account"}>
             <User size={20} strokeWidth={0.8} />
           </Link>
