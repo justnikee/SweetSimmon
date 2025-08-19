@@ -1,14 +1,14 @@
 "use client";
 
 import { X, Plus, Minus } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Button from "../ui/Button";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { removeItem, updateQuantity, closeCart } from "@/store/slice/cartSlice";
+import { error } from "console";
 
 type CartItemProps = {
   item: {
@@ -218,6 +218,29 @@ const QuantitySelector = ({ quantity, item }: QuantitySelectorProps) => {
 };
 
 function Checkout() {
+  const [loading, setLoading] = useState(false);
+  const items = useSelector((state: RootState) => state.cart.items);
+
+  const handleCheckout = async () => {
+    setLoading(true);
+    const res = await fetch("http://localhost:3000/api/checkout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ items }),
+    });
+
+    const data = await res.json();
+
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      console.error("Checkout error:", data.error);
+    }
+
+    setLoading(false);
+  };
   const cartTolal = useSelector((state: RootState) =>
     state.cart.items.reduce(
       (total, item) => total + item.price * item.quantity,
@@ -226,7 +249,9 @@ function Checkout() {
   );
   return (
     <div className="absolute bottom-0 left-0 w-full bg-white px-5 flex flex-col pt-6 pb-6 border-t border-lightblue">
-      <Button className="block ">Checkout | ${cartTolal}</Button>
+      <Button onClick={handleCheckout} className="block ">
+        {loading ? "Redirecting..." : <>Checkout | ${cartTolal}</>}
+      </Button>
       <span className="text-[12px] mt-1">
         Shipping and taxes calculated at checkout
       </span>
