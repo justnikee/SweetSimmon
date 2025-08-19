@@ -234,3 +234,11 @@ input[type="number"] {
   -ms-overflow-style: none; /* IE/Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+.header-otherPages span {
+  color: #231f20;
+}
+
+.header-otherPages img {
+  opacity: 1;
+}

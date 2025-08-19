@@ -7,6 +7,7 @@ import AnnouncementBar from "./components/global/announcementBar";
 import ReduxProvider from "./redux/provider";
 import CartDrawer from "./components/global/cart-drawer";
 import FilterDrawer from "./products/components/filter-drawer";
+import SearchBar from "./components/global/searchBar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -27,7 +28,8 @@ export default function RootLayout({
           {children}
           <Footer />
           <CartDrawer />
-           <FilterDrawer />
+          <FilterDrawer />
+          <SearchBar />
         </ReduxProvider>
         <div className="overlay"></div>
       </body>

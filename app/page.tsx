@@ -4,7 +4,7 @@ import Products from "./components/sections/bestsellers";
 import Testimonials from "./components/sections/testimonials";
 import ImageWithText from "./components/global/image-with-text";
 import CollectionShowcase from "./components/sections/collections-showcase";
-import SearchBar from "./components/global/searchBar";
+
 
 export default function Home() {
   return (
@@ -43,7 +43,6 @@ export default function Home() {
         subheading="Curated edits of bestselling clean beauty"
       />
       <CollectionShowcase />
-      <SearchBar />
     </div>
   );
 }

@@ -12,8 +12,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { openCart } from "@/store/slice/cartSlice";
 import { openSearchBar } from "@/store/slice/searchSlice";
+import { usePathname } from "next/navigation";
 
 const Header = () => {
+  const pathName = usePathname();
+  const isHome = pathName === "/";
+
   const [isOpenDiscover, setIsOpenDiscover] = useState(false);
   const [isShopOpen, setIsShopOpen] = useState(false);
   const [scrollY, setScrollY] = useState(0);
@@ -37,7 +41,9 @@ const Header = () => {
     <header
       className={`${
         scrollY > 0 ? "bg-white" : "bg-transparent"
-      } hover:bg-white z-[13] sticky top-0 transition-colors duration-200 ease-in-out group border-t border-white`}
+      } hover:bg-white z-[13] sticky top-0 transition-colors duration-200 ease-in-out group border-t border-white ${
+        isHome ? "header-home" : "header-otherPages"
+      }`}
     >
       <div className="container gap-2 hidden md:flex md:justify-between md:items-center relative">
         <div className="flex gap-4 items-center">
