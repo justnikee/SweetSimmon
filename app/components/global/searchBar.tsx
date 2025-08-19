@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { Search } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
+import Link from "next/link";
 
 const SearchBar = () => {
   const [search, setSearch] = useState("");
@@ -48,12 +49,12 @@ const SearchBar = () => {
 
   return (
     <div>
-      <div className="max-w-[1440px] px-2 m-auto">
+      <div className="px-8 py-6 m-auto">
         <div className="flex items-center w-full border-b border-black gap-3">
-          <Search />
+          <Search color="#231f20" strokeWidth={0.5} width={20} />
           <input
             type="text"
-            placeholder="search"
+            placeholder="Search"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="w-full border-0 shadow-none outline-none focus:shadow-none h-8"
@@ -67,16 +68,17 @@ const SearchBar = () => {
 
 function SearchResult({ products }: any) {
   return (
-    <>
-      {products.map((product: any) => (
-        <div>
+    <div className="flex justify-start w-full gap-3 my-5">
+      {products.map((product: any, index: number) => (
+        <Link href={`/products/${product.slug}`} key={index} className="w-1/4">
           <Image src={product.images[0]} height={600} width={400} alt="" />
-          <div>
-            <p>{product.title}</p> <p>{product.price}</p>
+          <div className="flex justify-between py-2 px-2">
+            <p className="font-bold">{product.title}</p>{" "}
+            <p className="font-bold">${product.price}</p>
           </div>
-        </div>
+        </Link>
       ))}
-    </>
+    </div>
   );
 }
 

@@ -36,7 +36,7 @@ const Page = async () => {
   const user = await getUserFromToken();
 
   if (!user) {
-    redirect("/login");
+    redirect("/account/login");
   }
 
   return (
