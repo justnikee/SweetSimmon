@@ -82,27 +82,35 @@ const ProductInfo = ({ product }: { product: Product }) => {
           <span className="ml-2">(20 Reviews)</span>
         </div>
 
-        <p className="my-3.5">€ {product.price}</p>
+        <p className="my-3.5">€ {(product.price / 100).toFixed(2)}</p>
         <div className="flex flex-col gap-4 my-4">
           <div className="flex flex-wrap gap-1">
-            {product.benefits?.map((tag, key) => (
-              <span
-                key={key}
-                className="uppercase text-sm leading-4.5 bg-super-lightblue text-primary-blue px-2 py-0.5"
-              >
-                {tag}
-              </span>
-            ))}
+            {product.benefits && product.benefits.length > 0 && (
+              <div className="flex flex-wrap gap-1">
+                {product.benefits.map((benefit, key) => (
+                  <span
+                    key={key}
+                    className="uppercase text-sm leading-4.5 bg-super-lightblue text-primary-blue px-2 py-0.5"
+                  >
+                    {benefit}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="text-sm text-primary">
-            <span>Skin Types: </span>
-            {product.skinTypes.map((type, i) => (
-              <span key={i}>
-                {type}
-                {product.skinTypes.length - 1 ? ", " : ""}
-              </span>
-            ))}
+            {product.skinTypes && product.skinTypes.length > 0 && (
+              <div className="text-sm text-primary">
+                <span>Skin Types: </span>
+                {product.skinTypes.map((type, i) => (
+                  <span key={i}>
+                    {type}
+                    {i !== product.skinTypes.length - 1 ? ", " : ""}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
 
           <p className="text-sm leading-[18px] text-primary max-w-[500px]">
