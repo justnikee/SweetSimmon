@@ -8,6 +8,7 @@ import ReduxProvider from "./redux/provider";
 import CartDrawer from "./components/global/cart-drawer";
 import FilterDrawer from "./products/components/filter-drawer";
 import SearchBar from "./components/global/searchBar";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -32,6 +33,7 @@ export default function RootLayout({
           <SearchBar />
         </ReduxProvider>
         <div className="overlay"></div>
+        <Analytics />
       </body>
     </html>
   );
