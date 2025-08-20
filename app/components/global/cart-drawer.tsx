@@ -8,7 +8,9 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { useDispatch } from "react-redux";
 import { removeItem, updateQuantity, closeCart } from "@/store/slice/cartSlice";
-import { error } from "console";
+import { jwtVerify } from "jose";
+import { redirect } from "next/navigation";
+import { getUserFromToken } from "@/lib/auth";
 
 type CartItemProps = {
   item: {
@@ -36,6 +38,11 @@ type QuantitySelectorProps = {
 type CartDraerProp = {
   isOpen: boolean;
   onToggle: (newState: boolean) => void;
+};
+
+type User = {
+  name: string;
+  email: string;
 };
 
 const CartDrawer = () => {
@@ -218,10 +225,19 @@ const QuantitySelector = ({ quantity, item }: QuantitySelectorProps) => {
 };
 
 function Checkout() {
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const items = useSelector((state: RootState) => state.cart.items);
 
   const handleCheckout = async () => {
+    const user = await getUserFromToken();
+
+    if (!user) {
+      dispatch(closeCart());
+      redirect("/account/login");
+      return;
+    }
+
     setLoading(true);
     const res = await fetch("http://localhost:3000/api/checkout", {
       method: "POST",

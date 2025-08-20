@@ -23,7 +23,7 @@ export async function POST(req: Request) {
         quantity: item.quantity,
       })),
       success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/account`,
-      cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/cart`,
+      cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/`,
     });
 
     return NextResponse.json({ url: session.url });

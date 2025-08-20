@@ -79,9 +79,9 @@ const SearchBar = () => {
             viewBox="0 0 24 24"
             fill="none"
             stroke="#231f20"
-            stroke-width="0.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="0.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             className="lucide lucide-x-icon lucide-x cursor-pointer"
             onClick={() => dispatch(closeSearchBar())}
           >

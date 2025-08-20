@@ -1,4 +1,3 @@
-import { cookies } from "next/headers";
 import { SignJWT } from "jose";
 import { nanoid } from "nanoid";
 
@@ -56,7 +55,7 @@ export async function POST(req: NextRequest) {
   response.cookies.set("token", token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    maxAge: 60 * 60 * 24 * 7, // 7 days
+    maxAge: 60 * 60 * 24 * 7,
     path: "/",
   });
   return response;
