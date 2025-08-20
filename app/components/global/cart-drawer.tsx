@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { useDispatch } from "react-redux";
 import { removeItem, updateQuantity, closeCart } from "@/store/slice/cartSlice";
-import { jwtVerify } from "jose";
 import { redirect } from "next/navigation";
 import { getUserFromToken } from "@/lib/auth";
 

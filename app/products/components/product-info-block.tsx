@@ -17,19 +17,20 @@ type Product = {
   description: string;
   price: number;
   tags: string[];
+  images: string[];
   inStock: boolean;
   isSubscribable: boolean;
-  subscriptionDiscountPercent: number;
-  subscriptionInterval: string;
+  subscriptionDiscountPercent: number | null;
+  subscriptionInterval: string | null;
   benefits: string[];
   skinTypes: string[];
-  volume: string;
-  details: string;
-  keyIngredients: string;
-  clinicalStudies: string;
-  howToUse: string;
-  fullIngredients: string;
-  sustainablePackaging: string;
+  volume: string | null;
+  details: string | null;
+  keyIngredients: string | null;
+  clinicalStudies: string | null;
+  howToUse: string | null;
+  fullIngredients: string | null;
+  sustainablePackaging: string | null;
 };
 
 type DeliveryOptionProp = {
