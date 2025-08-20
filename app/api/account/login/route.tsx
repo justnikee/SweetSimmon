@@ -1,11 +1,10 @@
 import { SignJWT } from "jose";
 import { nanoid } from "nanoid";
+import { prisma } from "@/lib/prisma";
 
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@/app/generated/prisma";
 import bcrypt from "bcrypt";
 
-const prisma = new PrismaClient();
 
 const secret = new TextEncoder().encode(process.env.JWT_SECRET!);
 

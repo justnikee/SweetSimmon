@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@/app/generated/prisma";
-const prisma = new PrismaClient();
+import { prisma } from "@/lib/prisma";
+
 import bcrypt from "bcrypt";
 
 const saltRounds = 10;

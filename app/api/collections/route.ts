@@ -1,11 +1,10 @@
-import { PrismaClient } from "@/app/generated/prisma";
-const prisma = new PrismaClient();
+import { prisma } from "@/lib/prisma";
 
-export async function GET(){
-    try {
-        const categories = await prisma.category.findMany();
-        return Response.json(categories)
-    } catch (error) {
-        return Response.json({message: "something went wrong", error})
-    }
+export async function GET() {
+  try {
+    const categories = await prisma.category.findMany();
+    return Response.json(categories);
+  } catch (error) {
+    return Response.json({ message: "something went wrong", error });
+  }
 }
