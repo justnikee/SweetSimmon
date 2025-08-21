@@ -82,7 +82,7 @@ const ProductInfo = ({ product }: { product: Product }) => {
           <span className="ml-2">(20 Reviews)</span>
         </div>
 
-        <p className="my-3.5">€ {(product.price / 100).toFixed(2)}</p>
+        <p className="my-3.5">€ {product.price}</p>
         <div className="flex flex-col gap-4 my-4">
           <div className="flex flex-wrap gap-1">
             {product.benefits && product.benefits.length > 0 && (

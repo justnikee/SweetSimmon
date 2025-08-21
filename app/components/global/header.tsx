@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Search, User, ShoppingCart } from "lucide-react";
+import { Search, User, ShoppingCart, Menu } from "lucide-react";
 import { useState, useEffect } from "react";
 import MegaMenu from "./mega-menu";
 import Discover from "./mega-menu-discover";
@@ -20,17 +20,17 @@ const Header = () => {
 
   const [isOpenDiscover, setIsOpenDiscover] = useState(false);
   const [isShopOpen, setIsShopOpen] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
+  const [scrollY, setScrollY] = useState(1);
 
   const isOpen = useSelector((state: RootState) => state.cart.isOpen);
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.pageYOffset);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  // useEffect(() => {
+  //   const handleScroll = () => setScrollY(window.pageYOffset);
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, []);\
 
   useEffect(() => {
     document.body.classList.toggle("no-scroll", isOpen);
@@ -40,8 +40,8 @@ const Header = () => {
   return (
     <header
       className={`${
-        scrollY > 0 ? "bg-white" : "bg-transparent"
-      } hover:bg-white z-[13] sticky top-0 transition-colors duration-200 ease-in-out group border-t border-white ${
+        scrollY > 0 ? "bg-white" : "bg-white"
+      } hover:bg-white z-[2] sticky top-0 transition-colors duration-200 ease-in-out group border-t border-white ${
         isHome ? "header-home" : "header-otherPages"
       }`}
     >
@@ -135,12 +135,48 @@ const Header = () => {
           </motion.div>
         )}
       </div>
+      <MobileMenu />
     </header>
   );
 };
 
 function MobileMenu() {
-  return <div></div>;
+  const dispatch = useDispatch();
+
+  return (
+    <div className="md:hidden p-4">
+      <div className="flex justify-between w-full">
+        <p className="w-1/3">
+          <Menu color="#000000" strokeWidth={1.5} />
+        </p>
+        <div className="w-1/3 flex justify-center">
+          <Image
+            className="w-20 h-6"
+            src="/images/logo.png"
+            alt="logo"
+            height={48}
+            width={160}
+          />
+        </div>
+
+        <div className="flex gap-4 justify-end w-1/3">
+          <div
+            onClick={() => dispatch(openSearchBar())}
+            className="cursor-pointer"
+          >
+            <Search size={20} strokeWidth={0.8} />
+          </div>
+          <div onClick={() => dispatch(openCart())}>
+            <ShoppingCart
+              className="cursor-pointer"
+              size={20}
+              strokeWidth={0.8}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default Header;

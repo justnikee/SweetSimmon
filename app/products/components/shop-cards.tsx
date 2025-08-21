@@ -19,7 +19,7 @@ const ShopCards = ({ id, title, images, price, slug }: Product) => {
             <Image
               key={index}
               className={`lg:h-[600px] ease-in-out duration-500 transition-opacity object-cover ${
-                index === 1
+                index === 0
                   ? "relative z-0"
                   : "absolute top-0 left-0 z-[1] opacity-0 group-hover:opacity-100"
               }`}

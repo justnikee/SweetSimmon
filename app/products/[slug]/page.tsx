@@ -34,7 +34,7 @@ const page = async ({ params }: PageProps) => {
       <div className="pb-20 pt-8">
         <div className="max-w-[1440px] px-10 m-auto">
           <div className="text-[10px] mb-6 flex items-center gap-1.5">
-            <Link className="uppercase text-[#495a6f]" href={"/"}>
+            <Link className="uppercase text-[#495a6f]" href="/">
               Home
             </Link>{" "}
             /{" "}

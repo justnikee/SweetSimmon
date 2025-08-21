@@ -15,7 +15,6 @@ type SlideProp = {
 
 const Banner = () => {
   const [scrollY, setScrollY] = useState(0);
-  console.log(scrollY);
   useEffect(() => {
     const getScroll = () => setScrollY(window.pageYOffset);
     window.addEventListener("scroll", getScroll);

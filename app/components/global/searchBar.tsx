@@ -68,7 +68,9 @@ const SearchBar = () => {
         duration: 0.5,
         ease: [0.77, 0, 0.175, 1],
       }}
-      className={`absolute top-[109px] w-full bg-white`}
+      className={`absolute top-[109px] w-full bg-white ${
+        isOpne ? "overflow-auto" : "overflow-hidden"
+      }`}
     >
       <div className="px-8 py-6 m-auto">
         <div className="flex justify-end mb-1.5">

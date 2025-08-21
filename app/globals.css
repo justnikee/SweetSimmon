@@ -135,11 +135,12 @@ input[type="number"] {
   top: 0;
   left: 0;
   position: fixed;
-  z-index: 12;
+  z-index: 13;
   background: #000;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
   pointer-events: none;
+  cursor: pointer;
 }
 
 .overlay.active {

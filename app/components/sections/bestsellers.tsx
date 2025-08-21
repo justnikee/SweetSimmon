@@ -1,6 +1,6 @@
-import { Suspense } from "react";
+
 import ProductsSliderWrapper from "./ProductsSliderWrapper";
-import Bestseller from "../skeletons/bestseller";
+
 
 type Props = {
   heading: string;
@@ -15,10 +15,7 @@ const Products = ({ heading, subheading }: Props) => {
           <h2 className="text-4xl leading-10 text-primary mb-2">{heading}</h2>
           <p className="text-sm leading-4.5">{subheading}</p>
         </div>
-
-        <Suspense fallback={<Bestseller />}>
           <ProductsSliderWrapper />
-        </Suspense>
       </div>
     </section>
   );

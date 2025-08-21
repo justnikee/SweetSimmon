@@ -55,6 +55,13 @@ const CartDrawer = () => {
     document.querySelector(".overlay")?.classList.remove("active");
   }
 
+  document
+    .querySelector(".overlay")
+    ?.addEventListener("click", function (this: any) {
+      dispatch(closeCart());
+      this.classList.remove("active");
+    });
+
   return (
     <div
       style={{

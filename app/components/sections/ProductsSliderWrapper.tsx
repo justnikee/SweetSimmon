@@ -1,16 +1,11 @@
 import ProductsSlider from "./ProductsSlider";
 
-// function sleep(ms: number) {
-//   return new Promise((resolve) => setTimeout(resolve, ms));
-// }
-
 export default async function ProductsSliderWrapper() {
-  //   await sleep(5000);
   const res = await fetch(
     `${
       process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
     }/api/products`,
-    { cache: "no-store" }
+    { next: { revalidate: 3600 } }
   );
 
   const products = await res.json();

@@ -2,7 +2,7 @@ export const megaMenuData = {
   featured: [
     {
       label: "Shop All",
-      href: "/collections/shop-all",
+      href: "/collections/all",
       images: ["/images/mega-menu/m1.webp", "/images/mega-menu/m2.jpg"],
     },
     {

@@ -11,7 +11,7 @@ const announcemetText = [
 
 const AnnouncementBar = () => {
   return (
-    <div className="transparent hover:bg-lightblue transition-colors duration-200 ease-in-out z-[12] relative">
+    <div className="bg-lightblue transition-colors duration-200 ease-in-out z-[2] relative">
       <Splide
         options={{
           direction: "ttb",

@@ -21,7 +21,7 @@ function Card({ product }: CardProduct) {
           <Image
             key={idx}
             className={`h-full w-full max-h-[400px] object-cover transition-all duration-200 ease-in-out  ${
-              idx === 0
+              idx === 1
                 ? "absolute top-0 left-0 opacity-0 group-hover:opacity-100 z-10"
                 : "relative z-0"
             }`}
