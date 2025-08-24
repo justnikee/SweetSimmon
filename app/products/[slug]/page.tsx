@@ -9,27 +9,17 @@ interface PageProps {
 }
 
 const page = async ({ params }: PageProps) => {
-  console.log("🔍 Product page: Starting...");
-
   try {
     const { slug } = await params;
-    console.log("🔍 Product page: Slug =", slug);
 
     const product = await prisma.product.findUnique({
       where: { slug },
     });
-    console.log("🔍 Product page: Product found =", !!product);
-    console.log(
-      "🔍 Product page: Product data =",
-      JSON.stringify(product, null, 2)
-    );
 
     if (!product) {
-      console.log("🔍 Product page: Product not found, calling notFound()");
       notFound();
     }
 
-    console.log("🔍 Product page: About to render ProductComponent");
     return (
       <div className="pb-20 pt-8">
         <div className="max-w-[1440px] px-10 m-auto">
@@ -51,7 +41,6 @@ const page = async ({ params }: PageProps) => {
     );
   } catch (error: any) {
     console.error("❌ Product page error:", error);
-    console.error("❌ Error stack:", error.stack);
     throw error;
   }
 };

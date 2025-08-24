@@ -23,7 +23,6 @@ const ShopHederText = async ({ slug }: Props) => {
     );
     return null;
   }
-
   const collection: Collection = await res.json();
 
   return (
