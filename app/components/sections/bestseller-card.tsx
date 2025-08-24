@@ -7,6 +7,7 @@ type Product = {
   price: number;
   id: number;
   slug: string;
+  tags: string[];
 };
 
 type CardProduct = {
@@ -17,12 +18,17 @@ function Card({ product }: CardProduct) {
   return (
     <div className="">
       <Link className="group" href={`/products/${product.slug}`}>
+        {product.tags[0] && (
+          <span className="absolute top-2 left-2 z-[2] text-[#134fc2] bg-[#d5e0ea] text-sm leading-4.5 px-2 py-0.5">
+            {product.tags[0]}
+          </span>
+        )}
         {product.images?.slice(0, 2).map((image, idx) => (
           <Image
             key={idx}
             className={`h-full w-full max-h-[400px] object-cover transition-all duration-200 ease-in-out  ${
               idx === 1
-                ? "absolute top-0 left-0 opacity-0 group-hover:opacity-100 z-10"
+                ? "absolute top-0 left-0 opacity-0 group-hover:opacity-100 z-1"
                 : "relative z-0"
             }`}
             src={image}

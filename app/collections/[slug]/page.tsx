@@ -22,7 +22,7 @@ async function ProductList({ slug, sort }: { slug: string; sort: string }) {
           }/api/products?sort=${sort}`,
           { next: { revalidate: 3600 } }
         )
-      : await fetch(
+    : await fetch(
           `${
             process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
           }/api/collections/${slug}?sort=${sort}`,
