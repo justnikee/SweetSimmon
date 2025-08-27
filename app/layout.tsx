@@ -9,6 +9,7 @@ import CartDrawer from "./components/global/cart-drawer";
 import FilterDrawer from "./products/components/filter-drawer";
 import SearchBar from "./components/global/searchBar";
 import { Analytics } from "@vercel/analytics/next";
+import { AuthProvider } from "@/lib/AuthContext";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,15 +24,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${myFont.variable} antialiased`}>
-        <ReduxProvider>
-          <AnnouncementBar />
-          <Header />
-          {children}
-          <Footer />
-          <CartDrawer />
-          <FilterDrawer />
-          <SearchBar />
-        </ReduxProvider>
+        <AuthProvider>
+          <ReduxProvider>
+            <AnnouncementBar />
+            <Header />
+            {children}
+            <Footer />
+            <CartDrawer />
+            <FilterDrawer />
+            <SearchBar />
+          </ReduxProvider>
+        </AuthProvider>
         <div className="overlay"></div>
         <Analytics />
       </body>

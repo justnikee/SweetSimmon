@@ -7,6 +7,7 @@ type Product = {
   price: number;
   id: number;
   slug: string;
+  tags: string[];
 };
 
 const Upsell = async () => {

@@ -13,10 +13,13 @@ import { RootState } from "@/store/store";
 import { openCart } from "@/store/slice/cartSlice";
 import { openSearchBar } from "@/store/slice/searchSlice";
 import { usePathname } from "next/navigation";
+import { useAuth } from "@/lib/AuthContext";
 
 const Header = () => {
   const pathName = usePathname();
   const isHome = pathName === "/";
+
+  const { user, signOut } = useAuth();
 
   const [isOpenDiscover, setIsOpenDiscover] = useState(false);
   const [isShopOpen, setIsShopOpen] = useState(false);
@@ -95,7 +98,10 @@ const Header = () => {
           >
             <Search size={20} strokeWidth={0.8} />
           </div>
-          <Link className="text-primary text-sm" href={"/account"}>
+          <Link
+            className="text-primary text-sm"
+            href={`${user ? "/account" : "/account/register"}`}
+          >
             <User size={20} strokeWidth={0.8} />
           </Link>
           <div onClick={() => dispatch(openCart())}>

@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { supabase } from "@/lib/supabaseClient";
+import { GoogleAuthButton } from "@/app/components/googleAuthButton";
 import * as z from "zod";
 
 import { useRouter } from "next/navigation";
@@ -19,7 +21,7 @@ import { Label } from "@/components/ui/label";
 
 const UserSchema = z.object({
   name: z.string().min(3, "Name must be at least 3 characters!"),
-  email: z.string().email("Must be valid Email"),
+  email: z.email("Must be valid Email"),
   password: z.string().min(6, "Password must be more than 6 characters"),
 });
 
@@ -53,26 +55,27 @@ export function RegisterForm({
       setFormErrors(errors);
       return;
     }
-    try {
-      const res = await fetch("/api/account", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+
+    const { data, error } = await supabase.auth.signUp({
+      email: email,
+      password: password,
+      options: {
+        data: {
+          name: name,
+          full_name: name,
         },
-        body: JSON.stringify(userData),
-      });
-      const data = await res.json();
-      if (data.success) {
-        setTimeout(() => {
-          route.push("/account/login");
-        }, 2000);
-      }
-    } catch (error) {
+      },
+    });
+
+    if (data.session) {
+      route.push("/account/login");
+    }
+
+    if (error) {
       console.log(error);
     }
 
     setFormErrors({});
-    console.log("form data is valid:", userData);
   }
 
   return (
@@ -133,9 +136,17 @@ export function RegisterForm({
                 </Button>
               </div>
             </div>
+            <p className="text-center mt-2.5">Or</p>
+            <div className="mt-2.5">
+              <GoogleAuthButton />
+            </div>
+
             <div className="mt-4 text-center text-sm">
               Already have an account?
-              <a href="/login" className="underline underline-offset-4 ml-1">
+              <a
+                href="/account/login"
+                className="underline underline-offset-4 ml-1"
+              >
                 Login
               </a>
             </div>

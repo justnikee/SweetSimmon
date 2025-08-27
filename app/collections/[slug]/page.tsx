@@ -5,13 +5,13 @@ import ShopHederText from "../components/shop-header-text";
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 
-type Product = {
-  id: number;
-  title: string;
-  images: string[];
-  price: number;
-  slug: string;
-};
+// type Product = {
+//   id: number;
+//   title: string;
+//   images: string[];
+//   price: number;
+//   slug: string;
+// };
 
 async function ProductList({ slug, sort }: { slug: string; sort: string }) {
   const response =

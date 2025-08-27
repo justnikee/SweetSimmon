@@ -3,18 +3,19 @@
 import React, { useState } from "react";
 import * as z from "zod";
 import { useRouter } from "next/navigation";
-
+import { useAuth } from "@/lib/AuthContext"; // Use the context
+import { GoogleAuthButton } from "@/app/components/googleAuthButton";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Card,
-  CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+  CardDescription,
+  CardContent,
+} from "./ui/card";
+import { Label } from "./ui/label";
+import { Input } from "./ui/input";
 
 const UserSchema = z.object({
   email: z.email("Must be valid Email"),
@@ -25,31 +26,60 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  const route = useRouter();
+  const router = useRouter();
+  const { user } = useAuth(); // Get user from context
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [formErrors, setFormErrors] = useState<{ [key: string]: string }>({});
+  const [isLoading, setIsLoading] = useState(false);
 
-  const loginInfo = { email, password };
-  const validateLogin = UserSchema.safeParse(loginInfo);
+  // Redirect if already logged in
+  React.useEffect(() => {
+    if (user) {
+      router.push("/account");
+    }
+  }, [user, router]);
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (validateLogin.success) {
-      const user = await fetch("/api/account/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(loginInfo),
+    setIsLoading(true);
+    setFormErrors({});
+
+    const loginInfo = { email, password };
+    const validateLogin = UserSchema.safeParse(loginInfo);
+
+    if (!validateLogin.success) {
+      const errors: { [key: string]: string } = {};
+      const fieldErrors = validateLogin.error.flatten().fieldErrors;
+
+      Object.entries(fieldErrors).forEach(([key, messages]) => {
+        if (messages && messages.length > 0) {
+          errors[key] = messages[0];
+        }
       });
 
-      const loginUser = await user.json();
-      if (loginUser.success) {
-        route.push("/account");
-      }
+      setFormErrors(errors);
+      setIsLoading(false);
+      return;
     }
-  }
 
+    try {
+      const { supabase } = await import("@/lib/supabaseClient");
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) {
+        setFormErrors({ submit: error.message });
+      }
+    } catch (error) {
+      console.error("Unexpected error:", error);
+      setFormErrors({ submit: "An unexpected error occurred" });
+    } finally {
+      setIsLoading(false);
+    }
+  };
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -60,7 +90,7 @@ export function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleLogin}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-3">
                 <Label htmlFor="email">Email</Label>
@@ -97,9 +127,17 @@ export function LoginForm({
                 </Button>
               </div>
             </div>
+            <p className="text-center mt-2.5">Or</p>
+            <div className="mt-2.5">
+              <GoogleAuthButton />
+            </div>
+
             <div className="mt-4 text-center text-sm">
               Don&apos;t have an account?{" "}
-              <a href="#" className="underline underline-offset-4">
+              <a
+                href="/account/register"
+                className="underline underline-offset-4"
+              >
                 Sign up
               </a>
             </div>
