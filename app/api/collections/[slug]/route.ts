@@ -13,7 +13,7 @@ export async function GET(
         ? await prisma.product.findMany()
         : await prisma.product.findMany({
             where: {
-              category: {
+              Category: {
                 slug: slug,
               },
             },
