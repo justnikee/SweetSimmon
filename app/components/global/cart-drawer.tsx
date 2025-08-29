@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { removeItem, updateQuantity, closeCart } from "@/store/slice/cartSlice";
 import { redirect } from "next/navigation";
 import { getUserFromToken } from "@/lib/auth";
+import { useAuth } from "@/lib/AuthContext";
 
 type CartItemProps = {
   item: {
@@ -231,17 +232,18 @@ const QuantitySelector = ({ quantity, item }: QuantitySelectorProps) => {
 };
 
 function Checkout() {
+  const { user } = useAuth();
+
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const items = useSelector((state: RootState) => state.cart.items);
 
-  const handleCheckout = async () => {
-    const user = await getUserFromToken();
+  console.log(user, "user");
 
+  const handleCheckout = async () => {
     if (!user) {
       dispatch(closeCart());
-      redirect("/account/login");
-      return;
+      return redirect("/account/login");
     }
 
     setLoading(true);

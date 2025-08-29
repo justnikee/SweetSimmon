@@ -22,6 +22,7 @@ export async function POST(req: Request) {
         },
         quantity: item.quantity,
       })),
+      billing_address_collection: "required",
       success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/account`,
       cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/`,
     });
