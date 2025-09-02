@@ -24,7 +24,13 @@ const ImageWithText = ({
         } flex items-center justify-center`}
       >
         <div className="flex-1">
-          <Image src={imageUrl} height={1000} width={1000} alt="Image" />
+          <Image
+            className="w-full h-full"
+            src={imageUrl}
+            height={1000}
+            width={1000}
+            alt="Image"
+          />
         </div>
         <div className="flex-1 flex justify-center items-center">
           <div className="w-lg">

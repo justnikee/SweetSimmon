@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const CollectionShowcase = () => {
   return (
-    <section className="max-h-[700px] h-full overflow-hidden">
+    <section className="h-full overflow-hidden">
       <div className="flex gap-2">
         <Link className="relative flex-1/4" href={""}>
           <Image
