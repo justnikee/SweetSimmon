@@ -7,7 +7,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 
 export async function POST(req: Request) {
   try {
-    const { items } = await req.json();
+    const { items, userId } = await req.json();
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
@@ -25,6 +25,10 @@ export async function POST(req: Request) {
       billing_address_collection: "required",
       success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/account`,
       cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/`,
+
+      metadata: {
+        userId: userId,
+      },
     });
 
     return NextResponse.json({ url: session.url });

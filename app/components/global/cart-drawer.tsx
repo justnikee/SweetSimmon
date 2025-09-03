@@ -256,7 +256,7 @@ function Checkout() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ items }),
+        body: JSON.stringify({ items, userId: user.id }),
       }
     );
 
