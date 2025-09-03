@@ -10,6 +10,7 @@ import { RootState } from "@/store/store";
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { closeSearchBar } from "@/store/slice/searchSlice";
+import IsScrolled from "@/app/hooks/checkScroll";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
@@ -56,6 +57,14 @@ const SearchBar = () => {
     return () => clearTimeout(timeout);
   }, [search]);
 
+  window.addEventListener("scroll", function () {
+    if (IsScrolled()) {
+      document.querySelector("body")?.classList.add("scrolling");
+    } else {
+      document.querySelector("body")?.classList.remove("scrolling");
+    }
+  });
+
   return (
     <motion.div
       initial={false}
@@ -68,7 +77,7 @@ const SearchBar = () => {
         duration: 0.5,
         ease: [0.77, 0, 0.175, 1],
       }}
-      className={`absolute top-[109px] w-full bg-white ${
+      className={`fixed top-[109px] w-full bg-white search-bar ${
         isOpne ? "overflow-auto" : "overflow-hidden"
       }`}
     >

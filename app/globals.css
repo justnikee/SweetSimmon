@@ -243,3 +243,7 @@ input[type="number"] {
 .header-otherPages img {
   opacity: 1;
 }
+
+.scrolling .search-bar {
+  top: 73px;
+}
