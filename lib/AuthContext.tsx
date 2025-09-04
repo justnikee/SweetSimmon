@@ -1,7 +1,12 @@
-// lib/AuthContext.tsx
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useRef,
+} from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { User } from "@supabase/supabase-js";
 
@@ -36,6 +41,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
 
+  const profileRef = useRef<Profile | null>(null);
+
+  useEffect(() => {
+    profileRef.current = profile;
+  }, [profile]);
+
   const getProfile = async (userId: string) => {
     try {
       console.log("Fetching profile for user:", userId);
@@ -48,7 +59,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
       if (error) {
         console.error("Error fetching profile:", error);
-        // Handle case where profile doesn't exist (new user)
         if (error.code === "PGRST116") {
           console.log("Profile not found for user:", userId);
           return null;
@@ -73,49 +83,41 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   useEffect(() => {
-    let isMounted = true; // Prevent state updates if component unmounts
-    let isInitialized = false; // Prevent double initialization
+    let isMounted = true;
+    let hasInitialized = false;
 
     const initializeAuth = async () => {
-      if (isInitialized) return;
-      isInitialized = true;
+      if (hasInitialized) return;
+      hasInitialized = true;
+
+      console.log("🚀 Starting auth initialization...");
 
       try {
-        console.log("Initializing auth...");
-
-        // Get initial session with error handling
         const {
           data: { session },
           error,
         } = await supabase.auth.getSession();
 
         if (error) {
-          console.error("Error getting session:", error);
-          if (isMounted) {
-            setLoading(false);
-          }
-          return;
-        }
-
-        if (session?.user && isMounted) {
-          console.log("Found existing session for user:", session.user.id);
+          console.error("❌ Session error:", error);
+        } else if (session?.user && isMounted) {
+          console.log("✅ Found user:", session.user.id);
           setUser(session.user);
 
-          // Get profile data
           const profileData = await getProfile(session.user.id);
           if (isMounted) {
             setProfile(profileData);
           }
+        } else {
+          console.log("ℹ️ No active session");
+          setUser(null);
+          setProfile(null);
         }
-
-        if (isMounted) {
-          setLoading(false);
-        }
-
-        console.log("Auth initialization complete");
       } catch (error) {
-        console.error("Error initializing auth:", error);
+        console.error("❌ Auth initialization failed:", error);
+      } finally {
         if (isMounted) {
+          console.log("🎯 Setting loading to FALSE");
           setLoading(false);
         }
       }
@@ -123,50 +125,29 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
     initializeAuth();
 
-    // Listen for auth changes
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (event, session) => {
-      console.log("Auth state changed:", event, "User ID:", session?.user?.id);
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      console.log("🔄 Auth event:", event);
 
-      if (!isMounted) {
-        console.log("Component unmounted, ignoring auth state change");
-        return;
-      }
+      if (!isMounted) return;
 
-      try {
-        if (session?.user) {
-          console.log("Setting user from auth state change:", session.user.id);
-          setUser(session.user);
-
-          // Only fetch profile if we don't have it or user changed
-          if (!profile || profile.id !== session.user.id) {
-            const profileData = await getProfile(session.user.id);
-            if (isMounted) {
-              setProfile(profileData);
-            }
-          }
-        } else {
-          console.log("No session, clearing user and profile");
-          setUser(null);
-          setProfile(null);
-        }
-      } catch (error) {
-        console.error("Error handling auth state change:", error);
-      } finally {
-        if (isMounted) {
-          setLoading(false);
-        }
+      if (event === "SIGNED_IN" && session?.user) {
+        console.log("👤 User signed in:", session.user.id);
+        setUser(session.user);
+      } else if (event === "SIGNED_OUT") {
+        console.log("👋 User signed out");
+        setUser(null);
+        setProfile(null);
       }
     });
 
-    // Cleanup function
     return () => {
-      console.log("Cleaning up AuthProvider");
+      console.log("🧹 Cleanup AuthProvider");
       isMounted = false;
       subscription?.unsubscribe();
     };
-  }, []); // Empty dependency array
+  }, []);
 
   const signOut = async () => {
     console.log("Signing out...");
