@@ -4,7 +4,11 @@ import { useEffect } from "react";
 const page = () => {
   async function getorders() {
     try {
-      const res = await fetch("http://localhost:3000/api/orders");
+      const res = await fetch(
+        `${
+          process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
+        }/api/orders`
+      );
       const data = await res.json();
 
       //   if (data.status != 200) {
