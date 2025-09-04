@@ -15,6 +15,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
+import { Content } from "@radix-ui/react-accordion";
 
 export default function AccountPage() {
   return (
@@ -303,6 +304,11 @@ function AccountContent() {
               </div>
             </form>
           )}
+        </CardContent>
+        <CardContent>
+          <div className="">
+            <h2>Orders</h2>
+          </div>
         </CardContent>
       </Card>
     </div>
